@@ -5,7 +5,7 @@ import os
 from dapr.clients import DaprClient
 
 app = Flask(__name__)
-app_port = os.getenv('APP_PORT', '6002')
+app_port = os.getenv('APP_PORT', '5000')
 
 dapr = DaprClient()
 
@@ -64,5 +64,9 @@ def foundDog():
     print('Subscriber received : %s' % event.data, flush=True)
     return json.dumps({'success': True}), 200, {
         'ContentType': 'application/json'}
+
+@app.route('/', methods=['GET'])
+def index():
+    return '<h1>PetSpotR Backend</h1>'
 
 app.run(port=app_port)
