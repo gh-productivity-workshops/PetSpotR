@@ -1,0 +1,122 @@
+@using System 
+@using System.IO
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.Logging
+@using Dapr.Client
+@inject ILogger<LostDog> Logger
+@inject IWebHostEnvironment Environment
+
+<p>
+    <label>
+        <InputFile OnChange="@AddDog" multiple accept=".png,.jpg,.jpeg"  />
+    </label>
+</p>
+
+@if (isLoading)
+{
+    <p>Uploading...</p>
+}
+else
+{
+    <ul>
+        @foreach (var file in loadedFiles)
+        {
+            <li>
+                <ul>
+                    <li>Name: @file.Name</li>
+                    <li>Last modified: @file.LastModified.ToString()</li>
+                    <li>Size (bytes): @file.Size</li>
+                    <li>Content type: @file.ContentType</li>
+                </ul>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    // Documentation: https://learn.microsoft.com/en-us/aspnet/core/blazor/file-uploads?view=aspnetcore-7.0&pivots=server
+    private List<IBrowserFile> loadedFiles = new();
+    private long maxFileSize = 1024 * 1000;
+    private int maxAllowedFiles = 20;
+    private bool isLoading;
+
+    private async Task AddDog(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+        var uploadedFiles = new List<string>();
+
+        var daprClient = new DaprClientBuilder().Build();
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+            try
+            {
+                loadedFiles.Add(file);
+
+                var stream = file.OpenReadStream(maxFileSize);
+                
+                MemoryStream ms = new MemoryStream();
+                await stream.CopyToAsync(ms);
+
+                var filename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(file.Name)}";
+
+                try {
+                    Logger.LogInformation("Uploading file: {Filename}", file.Name);
+                    await daprClient.InvokeBindingAsync(
+                        bindingName: "images",
+                        operation: "create",
+                        data: ms.ToArray(),
+                        metadata: new Dictionary<string, string>
+                        {
+                            { "contentType", file.ContentType },
+                            { "blobName", filename }
+                        }
+                    );
+                } catch (Exception ex) {
+                    Logger.LogError("File: {Filename} Error: {Error}", 
+                        file.Name, ex.Message);
+                }
+
+                uploadedFiles.Add(filename);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError("File: {Filename} Error: {Error}", 
+                    file.Name, ex.Message);
+            }
+        }
+
+        var dogId = Guid.NewGuid().ToString();
+        try {
+            Logger.LogInformation("Saving state");
+            await daprClient.SaveStateAsync(
+                storeName: "dogs",
+                key: dogId,
+                value: new Dictionary<string, string>
+                {
+                    { "dogName", "Winnie" },
+                    { "dogId", dogId },
+                    { "dogState", "new" },
+                    { "dogImages", string.Join(",", uploadedFiles) }
+                }
+            );
+        } catch (Exception ex) {
+            Logger.LogError("Error: {Error}", ex.InnerException);
+        }
+
+        try {
+            Logger.LogInformation("Publishing event");
+            await daprClient.PublishEventAsync(
+                pubsubName: "pubsub",
+                topicName: "lostDog",
+                data: dogId
+            );
+        } catch (Exception ex) {
+            Logger.LogError("Error: {Error}", ex.InnerException);
+        }
+        
+        isLoading = false;
+    }
+
+}
