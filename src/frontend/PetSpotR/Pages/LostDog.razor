@@ -110,7 +110,10 @@ else
             await daprClient.PublishEventAsync(
                 pubsubName: "pubsub",
                 topicName: "lostDog",
-                data: dogId
+                data: new Dictionary<string, string>
+                {
+                    { "dogId", dogId }
+                }
             );
         } catch (Exception ex) {
             Logger.LogError("Error: {Error}", ex.InnerException);
