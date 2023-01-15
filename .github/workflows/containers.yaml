@@ -32,7 +32,7 @@ jobs:
         with:
           push: true
           tags: |
-            ${REGISTRY_ADDRESS}/backend:latest
+            ${{ env.REGISTRY_ADDRESS }}/backend:latest
           file: src/backend/Dockerfile
           context: src/backend
       - name: Build and Push Frontend
@@ -40,6 +40,6 @@ jobs:
         with:
           push: true
           tags: |
-            ${REGISTRY_ADDRESS}/frontend:latest
+            ${{ env.REGISTRY_ADDRESS }}/frontend:latest
           file: src/frontend/Dockerfile
           context: src/frontend
