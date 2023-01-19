@@ -13,3 +13,14 @@ img {
 h2 {
     text-align: center;
 }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.buttons a {
+    margin: 20px;
+}
