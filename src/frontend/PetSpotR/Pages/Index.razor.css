@@ -1,0 +1,15 @@
+.splash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    margin: auto;
+    display: block;
+    width: 50%;
+}
+
+h2 {
+    text-align: center;
+}
