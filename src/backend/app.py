@@ -15,21 +15,21 @@ def subscribe():
     subscriptions = [
         {
             'pubsubname': 'pubsub',
-            'topic': 'lostDog',
-            'route': 'lostDog'
+            'topic': 'lostPet',
+            'route': 'lostPet'
         },
         {
             'pubsubname': 'pubsub',
-            'topic': 'foundDog',
-            'route': 'foundDog'
+            'topic': 'foundPet',
+            'route': 'foundPet'
         }
     ]
     print('Dapr pub/sub is subscribed to: ' + json.dumps(subscriptions))
     return jsonify(subscriptions)
 
 
-@app.route('/lostDog', methods=['POST'])
-def lostDog():
+@app.route('/lostPet', methods=['POST'])
+def lostPet():
     event = from_http(request.headers, request.get_data())
     dogId = event.data['dogId']
 
@@ -58,8 +58,8 @@ def lostDog():
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
-@app.route('/foundDog', methods=['POST'])
-def foundDog():
+@app.route('/foundPet', methods=['POST'])
+def foundPet():
     event = from_http(request.headers, request.get_data())
     print('Subscriber received : %s' % event.data, flush=True)
     return json.dumps({'success': True}), 200, {
