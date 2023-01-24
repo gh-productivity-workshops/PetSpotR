@@ -1,0 +1,68 @@
+@using System
+@using System.IO
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.Logging
+@using Dapr.Client
+@using PetSpotR.Models
+@inject ILogger<FoundPet> Logger
+@inject IWebHostEnvironment Environment
+@inject NavigationManager NavigationManager
+
+<EditForm Model="@petModel" OnSubmit="@HandleSubmit" >
+    <div class="form-container">
+        <h2>Step 1: Upload an image of the pet you found</h2>
+        <div class="form-group row justify-content-center">
+            <div class="col-4">
+                <label>
+                    <InputFile OnChange="@SelectImages" multiple accept=".png,.jpg,.jpeg" />
+                </label>
+            </div>
+        </div>
+        @if (isLoading)
+        {
+            <p>Uploading...</p>
+        }
+        <h2>Step 2: Submit lost pet for AI prediction</h2>
+        <div class="form-group row">
+            <div class="col-sm">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private List<IBrowserFile> loadedImages = new();
+    private long maxFileSize = 1024 * 1000;
+    private int maxAllowedFiles = 20;
+    private bool isLoading;
+
+    private PetModel petModel = new();
+
+    private async void HandleSubmit()
+    {
+        var uploadedFiles = new List<string>();
+        Logger.LogInformation("Form submitted");
+
+        // Process the form
+
+        NavigationManager.NavigateTo("/submit");
+    }
+
+    private async Task SelectImages(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedImages.Clear();
+
+        Logger.LogInformation("New images selected");
+
+        foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+        {
+
+            loadedImages.Add(file);
+        }
+
+        isLoading = false;
+    }
+
+}

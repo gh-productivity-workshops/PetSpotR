@@ -1,0 +1,42 @@
+h1,h2,p {
+    text-align: center;
+}
+
+h2 {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.form-container {
+    margin: 0 auto;
+    width: 60%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.buttons a {
+    margin: 20px;
+}
+
+.row {
+    margin: 10px;
+}
+
+label {
+    font-weight: 600;
+}
+
+button {
+    /* center the button */
+    margin: 0 auto;
+    display: block;
+}
+
+select {
+    display: block;
+}
