@@ -1,4 +1,4 @@
-@using System 
+@using System
 @using System.IO
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.Extensions.Logging
@@ -6,73 +6,54 @@
 @using PetSpotR.Models
 @inject ILogger<LostDog> Logger
 @inject IWebHostEnvironment Environment
+@inject NavigationManager NavigationManager
 
-<EditForm Model="@petModel" OnSubmit="@HandleSubmit">
-    <h2>Step 1: Tell us about your pet</h2>
 
-    <div class="form-group row">
-        <label for="petName" class="col-sm-2 col-form-label">Pet Name</label>
-        <div class="col-sm-10">
-            <InputText id="name" @bind-Value="petModel.Name" />
+<EditForm Model="@petModel" OnSubmit="@HandleSubmit" >
+    <div class="form-container">
+        <h2>Step 1: Tell us about your pet</h2>
+        <div class="form-group row justify-content-center">
+            <label for="petName" class="col-2 col-form-label">Pet Name</label>
+            <div class="col-4">
+                <InputText id="name" @bind-Value="petModel.Name" />
+            </div>
         </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="petType" class="col-sm-2 col-form-label">Pet Type</label>
-        <div class="col-sm-10">
-            <InputSelect id="type" @bind-Value="petModel.Type">
-                <option>Dog</option>
-                <option>Cat</option>
-            </InputSelect>
+        <div class="form-group row justify-content-center">
+            <label for="petType" class="col-2 col-form-label">Pet Type</label>
+            <div class="col-4">
+                <InputSelect id="type" @bind-Value="petModel.Type">
+                    <option>Dog</option>
+                    <option>Cat</option>
+                </InputSelect>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="petBreed" class="col-sm-2 col-form-label">Pet Breed</label>
-        <div class="col-sm-10">
-            <InputText id="breed" @bind-Value="petModel.Breed" />
+        <div class="form-group row justify-content-center">
+            <label for="petBreed" class="col-2 col-form-label">Pet Breed</label>
+            <div class="col-4">
+                <InputText id="breed" @bind-Value="petModel.Breed" />
+            </div>
         </div>
-    </div>
-
-    <h2>Step 2: Upload images of your pet</h2>
-    <p>For best results upload at least 8-10 images with different angles, lighting, and backgrounds</p>
-
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <label>
-                <InputFile OnChange="@SelectImages" multiple accept=".png,.jpg,.jpeg"  />
-            </label>
+        <h2>Step 2: Upload images of your pet</h2>
+        <p><i>For best results upload at least 8-10 images with different angles, lighting, and backgrounds</i></p>
+        <div class="form-group row justify-content-center">
+            <div class="col-4">
+                <label>
+                    <InputFile OnChange="@SelectImages" multiple accept=".png,.jpg,.jpeg" />
+                </label>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        @if (isLoading)
+        {
+            <p>Uploading...</p>
+        }
+        <h2>Step 3: Submit lost pet for AI training</h2>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </div>
         </div>
     </div>
 </EditForm>
-
-
-@if (isLoading)
-{
-    <p>Uploading...</p>
-}
-else
-{
-    <ul>
-        @foreach (var file in loadedImages)
-        {
-            <li>
-                <ul>
-                    <li>Name: @file.Name</li>
-                    <li>Last modified: @file.LastModified.ToString()</li>
-                    <li>Size (bytes): @file.Size</li>
-                    <li>Content type: @file.ContentType</li>
-                </ul>
-            </li>
-        }
-    </ul>
-}
 
 @code {
     private List<IBrowserFile> loadedImages = new();
@@ -93,35 +74,39 @@ else
         foreach (var image in loadedImages)
         {
             var stream = image.OpenReadStream(maxFileSize);
-                
+
             MemoryStream ms = new MemoryStream();
             await stream.CopyToAsync(ms);
 
             var filename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.Name)}";
 
-            try {
-              Logger.LogInformation("Uploading file: {Filename}", image.Name);
-              await daprClient.InvokeBindingAsync(
-                  bindingName: "images",
-                  operation: "create",
-                  data: ms.ToArray(),
-                  metadata: new Dictionary<string, string>
-                  {
-                      { "contentType", image.ContentType },
-                      { "blobName", filename }
-                  }
-              );
+            try
+            {
+                Logger.LogInformation("Uploading file: {Filename}", image.Name);
+                await daprClient.InvokeBindingAsync(
+                    bindingName: "images",
+                    operation: "create",
+                    data: ms.ToArray(),
+                    metadata: new Dictionary<string, string>
+                    {
+                        { "contentType", image.ContentType },
+                        { "blobName", filename }
+                    }
+                );
             }
-            catch (Exception ex) {
-              Logger.LogError("File: {Filename} Error: {Error}", image.Name, ex.Message);
+            catch (Exception ex)
+            {
+                Logger.LogError("File: {Filename} Error: {Error}", image.Name, ex.Message);
             }
 
             petModel.Images.Add(filename);
-            
+
         }
-        
+
         await petModel.SavePetStateAsync(daprClient, "pets");
         await petModel.PublishLostPetAsync(daprClient, "pubsub");
+
+        NavigationManager.NavigateTo("/submit");
     }
 
     private async Task SelectImages(InputFileChangeEventArgs e)
@@ -136,7 +121,7 @@ else
 
             loadedImages.Add(file);
         }
-        
+
         isLoading = false;
     }
 

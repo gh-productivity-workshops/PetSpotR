@@ -7,6 +7,11 @@ h2 {
     margin-bottom: 30px;
 }
 
+.form-container {
+    margin: 0 auto;
+    width: 60%;
+}
+
 .buttons {
     display: flex;
     justify-content: center;
@@ -26,14 +31,12 @@ label {
     font-weight: 600;
 }
 
-form {
-    /*center the form on the page*/
-    margin: 0 auto;
-    width: 50%;
-}
-
 button {
     /* center the button */
     margin: 0 auto;
+    display: block;
+}
+
+select {
     display: block;
 }
