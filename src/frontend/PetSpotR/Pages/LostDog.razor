@@ -3,14 +3,55 @@
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.Extensions.Logging
 @using Dapr.Client
+@using PetSpotR.Models
 @inject ILogger<LostDog> Logger
 @inject IWebHostEnvironment Environment
 
-<p>
-    <label>
-        <InputFile OnChange="@AddDog" multiple accept=".png,.jpg,.jpeg"  />
-    </label>
-</p>
+<EditForm Model="@petModel" OnSubmit="@HandleSubmit">
+    <h2>Step 1: Tell us about your pet</h2>
+
+    <div class="form-group row">
+        <label for="petName" class="col-sm-2 col-form-label">Pet Name</label>
+        <div class="col-sm-10">
+            <InputText id="name" @bind-Value="petModel.Name" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="petType" class="col-sm-2 col-form-label">Pet Type</label>
+        <div class="col-sm-10">
+            <InputSelect id="type" @bind-Value="petModel.Type">
+                <option>Dog</option>
+                <option>Cat</option>
+            </InputSelect>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="petBreed" class="col-sm-2 col-form-label">Pet Breed</label>
+        <div class="col-sm-10">
+            <InputText id="breed" @bind-Value="petModel.Breed" />
+        </div>
+    </div>
+
+    <h2>Step 2: Upload images of your pet</h2>
+    <p>For best results upload at least 8-10 images with different angles, lighting, and backgrounds</p>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <label>
+                <InputFile OnChange="@SelectImages" multiple accept=".png,.jpg,.jpeg"  />
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+    </div>
+</EditForm>
+
 
 @if (isLoading)
 {
@@ -19,7 +60,7 @@
 else
 {
     <ul>
-        @foreach (var file in loadedFiles)
+        @foreach (var file in loadedImages)
         {
             <li>
                 <ul>
@@ -34,89 +75,66 @@ else
 }
 
 @code {
-    // Documentation: https://learn.microsoft.com/en-us/aspnet/core/blazor/file-uploads?view=aspnetcore-7.0&pivots=server
-    private List<IBrowserFile> loadedFiles = new();
+    private List<IBrowserFile> loadedImages = new();
     private long maxFileSize = 1024 * 1000;
     private int maxAllowedFiles = 20;
     private bool isLoading;
 
-    private async Task AddDog(InputFileChangeEventArgs e)
+    private PetModel petModel = new();
+
+    private async void HandleSubmit()
+    {
+        var uploadedFiles = new List<string>();
+        Logger.LogInformation("Form submitted");
+
+        // Process the form
+        var daprClient = new DaprClientBuilder().Build();
+
+        foreach (var image in loadedImages)
+        {
+            var stream = image.OpenReadStream(maxFileSize);
+                
+            MemoryStream ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+
+            var filename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.Name)}";
+
+            try {
+              Logger.LogInformation("Uploading file: {Filename}", image.Name);
+              await daprClient.InvokeBindingAsync(
+                  bindingName: "images",
+                  operation: "create",
+                  data: ms.ToArray(),
+                  metadata: new Dictionary<string, string>
+                  {
+                      { "contentType", image.ContentType },
+                      { "blobName", filename }
+                  }
+              );
+            }
+            catch (Exception ex) {
+              Logger.LogError("File: {Filename} Error: {Error}", image.Name, ex.Message);
+            }
+
+            petModel.Images.Add(filename);
+            
+        }
+        
+        await petModel.SavePetStateAsync(daprClient, "pets");
+        await petModel.PublishLostPetAsync(daprClient, "pubsub");
+    }
+
+    private async Task SelectImages(InputFileChangeEventArgs e)
     {
         isLoading = true;
-        loadedFiles.Clear();
-        var uploadedFiles = new List<string>();
+        loadedImages.Clear();
 
-        var daprClient = new DaprClientBuilder().Build();
+        Logger.LogInformation("New images selected");
 
         foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
         {
-            try
-            {
-                loadedFiles.Add(file);
 
-                var stream = file.OpenReadStream(maxFileSize);
-                
-                MemoryStream ms = new MemoryStream();
-                await stream.CopyToAsync(ms);
-
-                var filename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(file.Name)}";
-
-                try {
-                    Logger.LogInformation("Uploading file: {Filename}", file.Name);
-                    await daprClient.InvokeBindingAsync(
-                        bindingName: "images",
-                        operation: "create",
-                        data: ms.ToArray(),
-                        metadata: new Dictionary<string, string>
-                        {
-                            { "contentType", file.ContentType },
-                            { "blobName", filename }
-                        }
-                    );
-                } catch (Exception ex) {
-                    Logger.LogError("File: {Filename} Error: {Error}", 
-                        file.Name, ex.Message);
-                }
-
-                uploadedFiles.Add(filename);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError("File: {Filename} Error: {Error}", 
-                    file.Name, ex.Message);
-            }
-        }
-
-        var dogId = Guid.NewGuid().ToString();
-        try {
-            Logger.LogInformation("Saving state");
-            await daprClient.SaveStateAsync(
-                storeName: "dogs",
-                key: dogId,
-                value: new Dictionary<string, string>
-                {
-                    { "dogName", "Winnie" },
-                    { "dogId", dogId },
-                    { "dogState", "new" },
-                    { "dogImages", string.Join(",", uploadedFiles) }
-                }
-            );
-        } catch (Exception ex) {
-            Logger.LogError("Error: {Error}", ex.InnerException);
-        }
-
-        try {
-            Logger.LogInformation("Publishing event");
-            await daprClient.PublishEventAsync(
-                pubsubName: "pubsub",
-                topicName: "lostDog",
-                data: new Dictionary<string, string>
-                {
-                    { "dogId", dogId }
-                }
-            );
-        } catch (Exception ex) {
-            Logger.LogError("Error: {Error}", ex.InnerException);
+            loadedImages.Add(file);
         }
         
         isLoading = false;
