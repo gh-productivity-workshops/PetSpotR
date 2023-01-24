@@ -7,7 +7,7 @@
 img {
     margin: auto;
     display: block;
-    width: 50%;
+    max-width: 50%;
 }
 
 h2 {
