@@ -1,4 +1,4 @@
-name: Deploy Infrastructure
+name: Build and deploy
 
 on:
   push:
@@ -6,8 +6,12 @@ on:
       - main
     paths:
       - 'iac/**'
-      - '.github/workflows/infrastructure.yaml'
+      - 'src/**'
+      - '.github/workflows/**'
   workflow_dispatch:
+  
+env:
+  REGISTRY_ADDRESS: petspotr.azurecr.io
 
 jobs:
   deploy:
@@ -25,7 +29,7 @@ jobs:
           az deployment group create \
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --template-file iac/main.bicep
+            --template-file iac/infra.bicep
   helm:
     name: Install Helm Charts
     runs-on: ubuntu-latest
@@ -95,3 +99,51 @@ jobs:
           kubectl apply -f iac/dapr/images.yaml
           kubectl apply -f iac/dapr/pubsub.yaml
           kubectl apply -f iac/dapr/pets.yaml
+  containers:
+    name: Build and publish Docker containers
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Login to ACR
+        run: |
+          az acr login --name petspotr
+      - name: Build and Push Backend
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            ${{ env.REGISTRY_ADDRESS }}/backend:latest
+          file: src/backend/Dockerfile
+          context: src/backend
+      - name: Build and Push Frontend
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            ${{ env.REGISTRY_ADDRESS }}/frontend:latest
+          file: src/frontend/Dockerfile
+          context: src/frontend
+  app:
+    name: Deploy PetSpotR application
+    runs-on: ubuntu-latest
+    needs: container
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy Infrastructure
+        run: |
+          az deployment group create \
+            --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --template-file iac/app.bicep \
+            --parameters registryName=petspotr clusterName=petspotr serviceBusAuthRuleName=petspotr/KEDA
