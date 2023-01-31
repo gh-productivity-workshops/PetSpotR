@@ -51,7 +51,12 @@ resource backendDeployment 'apps/Deployment@v1' = {
             env: [
               {
                 name: 'SERVICEBUS_CONNECTIONSTRING'
-                value: serviceBusNamespaceConnectionString
+                valueFrom: {
+                  secretKeyRef: {
+                    key: 'servicebus'
+                    name: 'connectionString'
+                  }
+                }
               }
             ]
           }

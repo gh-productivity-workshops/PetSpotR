@@ -2,23 +2,30 @@
 @secure()
 param kubeConfig string
 
-@description('Azure Storage Accont name')
-param storageAccountName string
+@description('Azure Storage Accont key')
+@secure()
+param storageAccountKey string
 
-@description('Azure CosmosDB account name')
-param cosmosAccountName string
+@description('Azure CosmosDB account key')
+@secure()
+param cosmosAccountKey string
 
-resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existing = {
-  name: cosmosAccountName
-}
-
-resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' existing = {
-  name: storageAccountName
-}
+@description('Service Bus Authorization Rule connection string')
+@secure()
+param serviceBusConnectionString string
 
 import 'kubernetes@1.0.0' with {
   kubeConfig: kubeConfig
   namespace: 'default'
+}
+
+resource serviceBusSecret 'core/Secret@v1' = {
+  metadata: {
+    name: 'servicebus'
+  }
+  stringData: {
+    connectionString: serviceBusConnectionString
+  }
 }
 
 resource storageSecret 'core/Secret@v1' = {
@@ -26,7 +33,7 @@ resource storageSecret 'core/Secret@v1' = {
     name: 'storage'
   }
   stringData: {
-    accountKey: storageAccount.listAccountSas().accountSasToken
+    accountKey: storageAccountKey
   }
 }
 
@@ -35,6 +42,6 @@ resource cosmosSecret 'core/Secret@v1' = {
     name: 'cosmos'
   }
   stringData: {
-    accountKey: cosmosAccount.listConnectionStrings().connectionStrings[0].connectionString
+    accountKey: cosmosAccountKey
   }
 }

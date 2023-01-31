@@ -146,7 +146,7 @@ jobs:
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --template-file iac/config.bicep \
-            --parameters storageAccountName=petspotr cosmosAccountName=petspotr clusterName=petspotr
+            --parameters storageAccountName=petspotr cosmosAccountName=petspotr clusterName=petspotr serviceBusAuthorizationRuleName=petspotr/Dapr
   app:
     name: Deploy PetSpotR application
     runs-on: ubuntu-latest
