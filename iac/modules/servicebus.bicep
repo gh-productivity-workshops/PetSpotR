@@ -20,7 +20,6 @@ resource namespace 'Microsoft.ServiceBus/namespaces@2022-01-01-preview' = {
     name: 'KEDA'
     properties: {
       rights: [
-        'Listen'
         'Manage'
       ]
     }
