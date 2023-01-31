@@ -1,8 +1,6 @@
 # PetSpotR
 
-[![Build and Publish Docker Images](https://github.com/AaronCrawfis/PetSpotR/actions/workflows/containers.yaml/badge.svg)](https://github.com/Azure-Samples/PetSpotR/actions/workflows/containers.yaml)
-[![Deploy Infrastructure](https://github.com/Azure-Samples/PetSpotR/actions/workflows/infrastructure.yaml/badge.svg)](https://github.com/Azure-Samples/PetSpotR/actions/workflows/infrastructure.yaml)
-[![Deploy Application](https://github.com/Azure-Samples/PetSpotR/actions/workflows/application.yaml/badge.svg)](https://github.com/Azure-Samples/PetSpotR/actions/workflows/application.yaml)
+[![Build and deploy](https://github.com/Azure-Samples/PetSpotR/actions/workflows/deploy.yaml/badge.svg)](https://github.com/Azure-Samples/PetSpotR/actions/workflows/deploy.yaml)
 
 Demo application for Azure Open Source Day 2023
 
