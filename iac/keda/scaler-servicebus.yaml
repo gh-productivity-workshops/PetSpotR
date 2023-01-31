@@ -15,4 +15,4 @@ spec:
       topicName: lostpet
       subscriptionName: backend
       messageCount: "5"
-    connectionFromEnv: SERVICEBUS_CONNECTIONSTRING
+      connectionFromEnv: SERVICEBUS_CONNECTIONSTRING
