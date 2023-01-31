@@ -53,8 +53,8 @@ resource backendDeployment 'apps/Deployment@v1' = {
                 name: 'SERVICEBUS_CONNECTIONSTRING'
                 valueFrom: {
                   secretKeyRef: {
-                    key: 'servicebus'
-                    name: 'connectionString'
+                    name: 'servicebus'
+                    key: 'connectionString'
                   }
                 }
               }
