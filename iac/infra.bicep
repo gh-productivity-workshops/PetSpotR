@@ -2,7 +2,7 @@
 
 param location string = resourceGroup().location
 
-module storage 'modules/storage.bicep' = {
+module storage 'infra/storage.bicep' = {
   name: 'storage'
   params: {
     location: location
@@ -10,7 +10,7 @@ module storage 'modules/storage.bicep' = {
   }
 }
 
-module vault 'modules/keyvault.bicep' = {
+module vault 'infra/keyvault.bicep' = {
   name: 'vault'
   params: {
     location: location
@@ -18,7 +18,7 @@ module vault 'modules/keyvault.bicep' = {
   }
 }
 
-module registry 'modules/container-registry.bicep' = {
+module registry 'infra/container-registry.bicep' = {
   name: 'registry'
   params: {
     location: location
@@ -26,7 +26,7 @@ module registry 'modules/container-registry.bicep' = {
   }
 }
 
-module aml 'modules/aml.bicep' = {
+module aml 'infra/aml.bicep' = {
   name: 'aml'
   params: {
     location: location
@@ -37,7 +37,7 @@ module aml 'modules/aml.bicep' = {
   }
 }
 
-module servicebus 'modules/servicebus.bicep' = {
+module servicebus 'infra/servicebus.bicep' = {
   name: 'servicebus'
   params: {
     location: location
@@ -45,7 +45,7 @@ module servicebus 'modules/servicebus.bicep' = {
   }
 }
 
-module cosmos 'modules/cosmosdb.bicep' = {
+module cosmos 'infra/cosmosdb.bicep' = {
   name: 'cosmos'
   params: {
     accountName: 'petspotr'
@@ -53,10 +53,22 @@ module cosmos 'modules/cosmosdb.bicep' = {
   }
 }
 
-module aks 'modules/aks.bicep' = {
+module aks 'infra/aks.bicep' = {
   name: 'aks'
   params: {
     location: location
     clusterName: 'petspotr'
+  }
+}
+
+// Secrets -------------------------------------------------------------
+
+module secrets 'infra/secrets.bicep' = {
+  name: 'secrets'
+  params: {
+    aksClusterName: aks.outputs.aksCluster
+    cosmosAccountName: cosmos.outputs.cosmosName
+    serviceBusAuthorizationRuleName: servicebus.outputs.daprAuthRuleName
+    storageAccountName: storage.outputs.storageAccountName
   }
 }

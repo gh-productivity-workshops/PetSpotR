@@ -21,7 +21,7 @@ resource serviceBusAuthRule 'Microsoft.ServiceBus/namespaces/AuthorizationRules@
   name: serviceBusAuthRuleName
 }
 
-module frontend 'kubernetes/frontend.bicep' = {
+module frontend 'app/frontend.bicep' = {
   name: 'frontend'
   params: {
     containerRegistry: containerRegistry.properties.loginServer
@@ -29,7 +29,7 @@ module frontend 'kubernetes/frontend.bicep' = {
   }
 }
 
-module backend 'kubernetes/backend.bicep' = {
+module backend 'app/backend.bicep' = {
   name: 'backend'
   params: {
     containerRegistry: containerRegistry.properties.loginServer
