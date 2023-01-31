@@ -3,7 +3,7 @@
 param kubeConfig string
 
 @description('Azure Service Bus namespace authorization rule name')
-param serviceBusAuthorizationRuleName string
+param serviceBusAuthorizationRuleName string = 'petspotr/Dapr'
 
 @description('Azure Storage Accont name')
 param storageAccountName string

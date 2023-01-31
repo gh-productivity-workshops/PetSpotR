@@ -72,11 +72,11 @@ module secrets 'infra/secrets.bicep' = {
   name: 'secrets'
   params: {
     cosmosAccountName: cosmos.outputs.cosmosName
-    serviceBusAuthorizationRuleName: servicebus.outputs.daprAuthRuleName
     storageAccountName: storage.outputs.storageAccountName
     kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
   }
   dependsOn: [
     aks
+    servicebus
   ]
 }
