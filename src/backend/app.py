@@ -9,17 +9,20 @@ app_port = os.getenv('APP_PORT', '5000')
 
 dapr = DaprClient()
 
+statestore = 'pets'
+pubsubbroker = 'pubsub'
+
 # Register Dapr pub/sub subscriptions
 @app.route('/dapr/subscribe', methods=['GET'])
 def subscribe():
     subscriptions = [
         {
-            'pubsubname': 'pubsub',
+            'pubsubname': pubsubbroker,
             'topic': 'lostPet',
             'route': 'lostPet'
         },
         {
-            'pubsubname': 'pubsub',
+            'pubsubname': pubsubbroker,
             'topic': 'foundPet',
             'route': 'foundPet'
         }
@@ -31,19 +34,19 @@ def subscribe():
 @app.route('/lostPet', methods=['POST'])
 def lostPet():
     event = from_http(request.headers, request.get_data())
-    dogId = event.data['dogId']
+    petId = event.data['petId']
 
-    print(f'Lost dog: {dogId}', flush=True)
+    print(f'Lost pet: {petId}', flush=True)
 
     try: 
-        result = dapr.get_state(store_name='dogs', key=dogId)
+        result = dapr.get_state(store_name=statestore, key=petId)
         data = json.loads(result.data)
-        print(f'Dog state retrieved', flush=True)
+        print(f'Pet state retrieved', flush=True)
     except Exception as e:
         print(f'Error: {e}', flush=True)
 
     # Convert comma separated string to list
-    images = data['dogImages'].split(',')
+    images = data['petImages'].split(',')
     try:
         for image in images:
             print(f'Image: {image}', flush=True)
@@ -61,7 +64,12 @@ def lostPet():
 @app.route('/foundPet', methods=['POST'])
 def foundPet():
     event = from_http(request.headers, request.get_data())
-    print('Subscriber received : %s' % event.data, flush=True)
+    imagePath = event.data['imagePath']
+    type = event.data['type']
+    breed = event.data['breed']
+    print(f'Subscriber received : {imagePath}, {type}, {breed}', flush=True)
+
+    # Return response
     return json.dumps({'success': True}), 200, {
         'ContentType': 'application/json'}
 
