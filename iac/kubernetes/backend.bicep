@@ -35,7 +35,7 @@ resource backendDeployment 'apps/Deployment@v1' = {
         annotations: {
           'dapr.io/enabled': 'true'
           'dapr.io/app-id': 'backend'
-          'dapr.io/app-port': '6002'
+          'dapr.io/app-port': '5000'
         }
       }
       spec: {
