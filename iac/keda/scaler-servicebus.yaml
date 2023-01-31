@@ -1,0 +1,18 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: azure-servicebus-queue-scaledobject
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend
+  triggers:
+  - type: azure-servicebus
+    metadata:
+      namespace: petspotr
+      topicName: lostpet
+      subscriptionName: backend
+      messageCount: "5"
+    connectionFromEnv: SERVICEBUS_CONNECTIONSTRING
