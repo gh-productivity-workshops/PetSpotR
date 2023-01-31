@@ -18,7 +18,7 @@ module frontend 'kubernetes/frontend.bicep' = {
   name: 'frontend'
   params: {
     containerRegistry: containerRegistry.properties.loginServer
-    kubeConfig: base64ToString(aksCluster.listClusterAdminCredential().kubeconfigs[0].value)
+    kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
   }
 }
 
@@ -26,6 +26,6 @@ module backend 'kubernetes/backend.bicep' = {
   name: 'backend'
   params: {
     containerRegistry: containerRegistry.properties.loginServer
-    kubeConfig: base64ToString(aksCluster.listClusterAdminCredential().kubeconfigs[0].value)
+    kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
   }
 }
