@@ -15,6 +15,17 @@ resource namespace 'Microsoft.ServiceBus/namespaces@2022-01-01-preview' = {
     minimumTlsVersion: '1.2'
     publicNetworkAccess: 'Enabled'
   }
+
+  resource keda 'AuthorizationRules' = {
+    name: 'KEDA'
+    properties: {
+      rights: [
+        'Listen'
+      ]
+    }
+  }
+
 }
 
 output serviceBusId string = namespace.id
+output serviceBusAuthRuleName string = namespace::keda.name
