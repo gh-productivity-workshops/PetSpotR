@@ -1,15 +1,19 @@
-@description('The kube config for the target Kubernetes cluster.')
-@secure()
-param kubeConfig string
-
 @description('Azure Service Bus namespace authorization rule name')
-param serviceBusAuthorizationRuleName string = 'petspotr/Dapr'
+param serviceBusAuthorizationRuleName string
 
 @description('Azure Storage Accont name')
 param storageAccountName string
 
 @description('Azure CosmosDB account name')
 param cosmosAccountName string
+
+@description('Name of the AKS cluster. Defaults to a unique hash prefixed with "petspotr-"')
+param clusterName string = 'petspotr-${uniqueString(resourceGroup().id)}'
+
+resource aksCluster 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' existing = {
+  name: clusterName
+}
+var kubeConfig = aksCluster.listClusterAdminCredential().kubeconfigs[0].value
 
 resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existing = {
   name: cosmosAccountName

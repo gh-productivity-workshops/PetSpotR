@@ -129,10 +129,30 @@ jobs:
             ${{ env.REGISTRY_ADDRESS }}/frontend:latest
           file: src/frontend/Dockerfile
           context: src/frontend
+  secrets:
+    name: Deploy secrets
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy secrets
+        run: |
+          az deployment group create \
+            --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --template-file iac/secrets.bicep \
+            --parameters serviceBusAuthorizationRuleName=petspotr/Dapr storageAccountName=petspotr cosmosAccountName=petspotr clusterName=petspotr
   app:
     name: Deploy PetSpotR application
     runs-on: ubuntu-latest
-    needs: containers
+    needs:
+      - containers
+      - secrets
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -146,4 +166,4 @@ jobs:
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --template-file iac/app.bicep \
-            --parameters registryName=petspotr clusterName=petspotr serviceBusAuthRuleName=petspotr/KEDA
+            --parameters registryName=petspotr clusterName=petspotr
