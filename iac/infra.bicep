@@ -71,7 +71,6 @@ resource aksCluster 'Microsoft.ContainerService/managedClusters@2022-05-02-previ
 module secrets 'infra/secrets.bicep' = {
   name: 'secrets'
   params: {
-    aksClusterName: aks.outputs.aksCluster
     cosmosAccountName: cosmos.outputs.cosmosName
     serviceBusAuthorizationRuleName: servicebus.outputs.daprAuthRuleName
     storageAccountName: storage.outputs.storageAccountName
