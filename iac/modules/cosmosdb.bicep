@@ -62,12 +62,6 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview
             conflictResolutionPath: '/_ts'
           }
         }
-        options: {
-          autoscaleSettings: {
-            maxThroughput: 4000
-          }
-          throughput: 400
-        }
       }
     }
 

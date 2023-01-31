@@ -43,6 +43,14 @@ module servicebus 'modules/servicebus.bicep' = {
   }
 }
 
+module cosmos 'modules/cosmosdb.bicep' = {
+  name: 'cosmos'
+  params: {
+    accountName: 'petspotr'
+    location: location
+  }
+}
+
 module aks 'modules/aks.bicep' = {
   name: 'aks'
   params: {
