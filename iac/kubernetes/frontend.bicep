@@ -65,7 +65,7 @@ resource frontendService 'core/Service@v1' = {
     ports: [
       {
         port: 80
-        targetPort: '80'
+        targetPort: 80
         protocol: 'TCP'
       }
     ]
