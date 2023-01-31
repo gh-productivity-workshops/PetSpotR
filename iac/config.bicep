@@ -4,6 +4,9 @@ param clusterName string = 'petspotr-${uniqueString(resourceGroup().id)}'
 @description('Azure Service Bus namespace authorization rule name')
 param serviceBusAuthorizationRuleName string
 
+@description('Azure Service Bus namespace authorization rule name')
+param serviceBusNamespaceName string
+
 @description('Azure Storage Accont name')
 param storageAccountName string
 
@@ -20,6 +23,7 @@ module secrets 'infra/secrets.bicep' = {
     cosmosAccountName: cosmosAccountName
     kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
     serviceBusAuthorizationRuleName: serviceBusAuthorizationRuleName
+    serviceBusNamespaceName: serviceBusNamespaceName
     storageAccountName: storageAccountName
   }
 }
