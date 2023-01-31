@@ -35,15 +35,6 @@ import 'kubernetes@1.0.0' with {
   namespace: 'default'
 }
 
-resource serviceBusSecret 'core/Secret@v1' = {
-  metadata: {
-    name: 'servicebus'
-  }
-  stringData: {
-    connectionString: serviceBus::dapr.listKeys().primaryConnectionString
-  }
-}
-
 resource storageSecret 'core/Secret@v1' = {
   metadata: {
     name: 'storage'
