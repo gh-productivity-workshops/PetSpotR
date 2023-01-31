@@ -8,6 +8,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: backend
+  minReplicaCount: 1
   triggers:
   - type: azure-servicebus
     metadata:
