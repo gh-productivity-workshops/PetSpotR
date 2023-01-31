@@ -132,7 +132,7 @@ jobs:
   app:
     name: Deploy PetSpotR application
     runs-on: ubuntu-latest
-    needs: container
+    needs: containers
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
