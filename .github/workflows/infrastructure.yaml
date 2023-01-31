@@ -11,6 +11,7 @@ on:
 
 jobs:
   deploy:
+    name: Deploy Infrastructure
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -25,3 +26,30 @@ jobs:
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --template-file iac/main.bicep
+  helm:
+    name: Install Helm Charts
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Get AKS Credentials
+        run: |
+          az aks get-credentials \
+            --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --name petspotr
+      - name: Deploy Keda Chart
+        run: |
+          helm repo add kedacore https://kedacore.github.io/charts
+          helm repo update
+          helm upgrade keda kedacore/keda --install --version=2.9.4 --namespace keda --create-namespace --wait
+      - name: Deploy Dapr Chart
+        run: |
+          helm repo add dapr https://dapr.github.io/helm-charts/
+          helm repo update
+          helm upgrade dapr dapr/dapr --install --version=1.9 --namespace dapr-system --create-namespace --wait
