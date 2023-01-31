@@ -37,3 +37,11 @@ module backend 'app/backend.bicep' = {
     serviceBusNamespaceConnectionString: serviceBusAuthRule.listKeys().primaryConnectionString
   }
 }
+
+module ingress 'app/ingress.bicep' = {
+  name: 'ingress'
+  params: {
+    HTTPApplicationRoutingZoneName: aksCluster.properties.addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
+    kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
+  }
+}

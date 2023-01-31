@@ -69,6 +69,6 @@ resource frontendService 'core/Service@v1' = {
         protocol: 'TCP'
       }
     ]
-    type: 'LoadBalancer'
+    type: 'ClusterIP'
   }
 }

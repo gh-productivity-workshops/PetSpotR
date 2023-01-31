@@ -28,6 +28,11 @@ resource aksCluster 'Microsoft.ContainerService/managedClusters@2022-05-02-previ
     ]
     dnsPrefix: '${clusterName}-dns'
     enableRBAC: true
+    addonProfiles: {
+      httpApplicationRouting: {
+        enabled: true
+      }
+    }
   }
   identity: {
     type: 'SystemAssigned'
