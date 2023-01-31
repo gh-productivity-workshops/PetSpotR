@@ -11,9 +11,6 @@ param storageAccountName string
 @description('Azure CosmosDB account name')
 param cosmosAccountName string
 
-@description('AKS cluster name')
-param aksClusterName string
-
 resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existing = {
   name: cosmosAccountName
 }

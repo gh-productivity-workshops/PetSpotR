@@ -77,4 +77,7 @@ module secrets 'infra/secrets.bicep' = {
     storageAccountName: storage.outputs.storageAccountName
     kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
   }
+  dependsOn: [
+    aks
+  ]
 }
