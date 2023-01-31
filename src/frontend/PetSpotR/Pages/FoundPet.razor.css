@@ -29,6 +29,8 @@ h2 {
 
 label {
     font-weight: 600;
+    justify-content: right;
+    display: flex;
 }
 
 button {
