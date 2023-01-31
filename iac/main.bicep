@@ -1,3 +1,5 @@
+// Infrastructure ----------------------------------------------------
+
 param location string = resourceGroup().location
 
 module storage 'modules/storage.bicep' = {
