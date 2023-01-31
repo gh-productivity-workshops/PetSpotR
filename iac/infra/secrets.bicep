@@ -1,3 +1,7 @@
+@description('The kube config for the target Kubernetes cluster.')
+@secure()
+param kubeConfig string
+
 @description('Azure Service Bus namespace authorization rule name')
 param serviceBusAuthorizationRuleName string
 
@@ -14,10 +18,6 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existi
   name: cosmosAccountName
 }
 
-resource aksCluster 'Microsoft.ContainerService/managedClusters@2022-10-02-preview' existing = {
-  name: aksClusterName
-}
-
 resource daprAuthRule 'Microsoft.ServiceBus/namespaces/AuthorizationRules@2022-01-01-preview' existing = {
   name: serviceBusAuthorizationRuleName
 }
@@ -27,7 +27,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' existing 
 }
 
 import 'kubernetes@1.0.0' with {
-  kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
+  kubeConfig: kubeConfig
   namespace: 'default'
 }
 

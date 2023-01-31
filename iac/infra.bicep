@@ -53,15 +53,20 @@ module cosmos 'infra/cosmosdb.bicep' = {
   }
 }
 
+var clusterName = 'petspotr'
 module aks 'infra/aks.bicep' = {
   name: 'aks'
   params: {
     location: location
-    clusterName: 'petspotr'
+    clusterName: clusterName
   }
 }
 
 // Secrets -------------------------------------------------------------
+
+resource aksCluster 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' existing = {
+  name: clusterName
+}
 
 module secrets 'infra/secrets.bicep' = {
   name: 'secrets'
@@ -70,5 +75,6 @@ module secrets 'infra/secrets.bicep' = {
     cosmosAccountName: cosmos.outputs.cosmosName
     serviceBusAuthorizationRuleName: servicebus.outputs.daprAuthRuleName
     storageAccountName: storage.outputs.storageAccountName
+    kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
   }
 }

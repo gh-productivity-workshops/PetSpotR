@@ -17,10 +17,6 @@ resource aksCluster 'Microsoft.ContainerService/managedClusters@2022-05-02-previ
   name: clusterName
 }
 
-resource serviceBusAuthRule 'Microsoft.ServiceBus/namespaces/AuthorizationRules@2022-01-01-preview' existing = {
-  name: serviceBusAuthRuleName
-}
-
 module frontend 'app/frontend.bicep' = {
   name: 'frontend'
   params: {
@@ -34,6 +30,5 @@ module backend 'app/backend.bicep' = {
   params: {
     containerRegistry: containerRegistry.properties.loginServer
     kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
-    serviceBusNamespaceConnectionString: serviceBusAuthRule.listKeys().primaryConnectionString
   }
 }

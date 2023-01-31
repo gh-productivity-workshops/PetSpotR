@@ -8,10 +8,6 @@ param containerRegistry string
 @description('Tag of container to use')
 param containerTag string = 'latest'
 
-@description('Azure Service Bus namespace connection string')
-@secure()
-param serviceBusNamespaceConnectionString string
-
 import 'kubernetes@1.0.0' with {
   kubeConfig: kubeConfig
   namespace: 'default'
