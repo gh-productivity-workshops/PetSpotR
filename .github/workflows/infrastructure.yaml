@@ -53,3 +53,23 @@ jobs:
           helm repo add dapr https://dapr.github.io/helm-charts/
           helm repo update
           helm upgrade dapr dapr/dapr --install --version=1.9 --namespace dapr-system --create-namespace --wait
+  keda:
+    name: Install KEDA scalers
+    runs-on: ubuntu-latest
+    needs: helm
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Get AKS Credentials
+        run: |
+          az aks get-credentials \
+            --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --name petspotr
+      - name: Deploy KEDA scalers
+        run: |
+          kubectl apply -f iac/keda/scaler-servicebus.yaml
