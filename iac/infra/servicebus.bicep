@@ -27,7 +27,19 @@ resource namespace 'Microsoft.ServiceBus/namespaces@2022-01-01-preview' = {
     }
   }
 
+  resource dapr 'AuthorizationRules' = {
+    name: 'Dapr'
+    properties: {
+      rights: [
+        'Manage'
+        'Listen'
+        'Send'
+      ]
+    }
+  }
+
 }
 
 output serviceBusId string = namespace.id
 output serviceBusAuthRuleName string = namespace::keda.name
+output daprAuthRuleName string = namespace::dapr.name

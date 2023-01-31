@@ -33,3 +33,5 @@ resource aksCluster 'Microsoft.ContainerService/managedClusters@2022-05-02-previ
     type: 'SystemAssigned'
   }
 }
+
+output aksCluster string = aksCluster.name

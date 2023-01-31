@@ -68,3 +68,5 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2022-02-15-preview
   }
 
 }
+
+output cosmosName string = cosmosAccount.name
