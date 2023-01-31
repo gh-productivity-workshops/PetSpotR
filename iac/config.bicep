@@ -18,7 +18,7 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existi
   name: cosmosAccountName
 }
 
-resource storageAccount 'Microsoft.Storage/storageAccounts@2022-09-01' existing = {
+resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' existing = {
   name: storageAccountName
 }
 
@@ -31,7 +31,7 @@ module secrets 'infra/secrets.bicep' = {
   params: {
     cosmosAccountKey: cosmosAccount.listConnectionStrings().connectionStrings[0].connectionString
     kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
-    storageAccountKey: storageAccount.listAccountSas().accountSasToken
+    storageAccountKey: storageAccount.listKeys().keys[0].value
     serviceBusConnectionString: serviceBusAuthorizationRule.listKeys().primaryConnectionString
   }
 }
