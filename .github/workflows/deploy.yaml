@@ -153,6 +153,7 @@ jobs:
     needs:
       - containers
       - config
+      - dapr
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
