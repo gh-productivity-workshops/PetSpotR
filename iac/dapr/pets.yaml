@@ -10,8 +10,8 @@ spec:
     value: https://petspotr.documents.azure.com:443/
   - name: masterKey
     secretKeyRef:
-      key: cosmos
-      name: masterKey
+      name: cosmos
+      key: masterKey
   - name: database
     value: petspotr
   - name: collection

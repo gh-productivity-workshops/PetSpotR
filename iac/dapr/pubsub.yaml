@@ -8,6 +8,5 @@ spec:
   metadata:
   - name: connectionString
     secretKeyRef:
-      key: servicebus
-      name: connectionString
-
+      name: servicebus
+      key: connectionString

@@ -12,7 +12,7 @@ spec:
     value: images
   - name: accountKey
     secretKeyRef:
-      key: storage
-      name: accountKey
+      name: storage
+      key: accountKey
   - name: decodeBase64
     value: true
