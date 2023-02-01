@@ -161,10 +161,20 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Deploy Infrastructure
+      - name: Get AKS Credentials
+        run: |
+          az aks get-credentials \
+            --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --name petspotr
+      - name: Deploy Application
         run: |
           az deployment group create \
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --template-file iac/app.bicep \
             --parameters registryName=petspotr clusterName=petspotr serviceBusAuthRuleName=petspotr/Dapr
+      - name: Restart deployments
+        run: |
+          kubectl rollout restart deployment frontend
+          kubectl rollout restart deployment backend
