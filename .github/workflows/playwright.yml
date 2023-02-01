@@ -24,9 +24,8 @@ jobs:
         cd tests/playwright
         npm ci
     - name: Install Playwright Browsers
-      run:
+      run: |
         cd tests/playwright
-        pwd
         npx playwright install --with-deps
     - name: Run Playwright tests
       run:
