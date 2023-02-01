@@ -29,7 +29,7 @@ resource serviceBusAuthorizationRule 'Microsoft.ServiceBus/namespaces/Authorizat
 module secrets 'infra/secrets.bicep' = {
   name: 'secrets'
   params: {
-    cosmosAccountKey: cosmosAccount.listConnectionStrings().connectionStrings[0].connectionString
+    cosmosAccountKey: cosmosAccount.listKeys().primaryMasterKey
     kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
     storageAccountKey: storageAccount.listKeys().keys[0].value
     serviceBusConnectionString: serviceBusAuthorizationRule.listKeys().primaryConnectionString
