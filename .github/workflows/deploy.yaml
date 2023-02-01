@@ -30,6 +30,24 @@ jobs:
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --template-file iac/infra.bicep
+  config:
+    name: Deploy configuration and secrets
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy secrets
+        run: |
+          az deployment group create \
+            --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
+            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
+            --template-file iac/config.bicep \
+            --parameters storageAccountName=petspotr cosmosAccountName=petspotr clusterName=petspotr serviceBusAuthorizationRuleName=petspotr/Dapr
   helm:
     name: Install Helm Charts
     runs-on: ubuntu-latest
@@ -60,7 +78,9 @@ jobs:
   keda:
     name: Install KEDA scalers
     runs-on: ubuntu-latest
-    needs: helm
+    needs:
+      - helm
+      - config
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -80,7 +100,9 @@ jobs:
   dapr:
     name: Install Dapr components
     runs-on: ubuntu-latest
-    needs: helm
+    needs:
+      - helm
+      - config
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -129,24 +151,6 @@ jobs:
             ${{ env.REGISTRY_ADDRESS }}/frontend:latest
           file: src/frontend/Dockerfile
           context: src/frontend
-  config:
-    name: Deploy configuration and secrets
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Deploy secrets
-        run: |
-          az deployment group create \
-            --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --template-file iac/config.bicep \
-            --parameters storageAccountName=petspotr cosmosAccountName=petspotr clusterName=petspotr serviceBusAuthorizationRuleName=petspotr/Dapr
   app:
     name: Deploy PetSpotR application
     runs-on: ubuntu-latest
@@ -154,6 +158,7 @@ jobs:
       - containers
       - config
       - dapr
+      - keda
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
