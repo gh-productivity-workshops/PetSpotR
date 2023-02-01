@@ -179,7 +179,3 @@ jobs:
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --template-file iac/app.bicep \
             --parameters registryName=petspotr clusterName=petspotr serviceBusAuthRuleName=petspotr/Dapr
-      - name: Restart deployments
-        run: |
-          kubectl rollout restart deployment frontend
-          kubectl rollout restart deployment backend
