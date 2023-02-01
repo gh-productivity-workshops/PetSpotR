@@ -28,7 +28,7 @@ jobs:
         cd tests/playwright
         npx playwright install --with-deps
     - name: Run Playwright tests
-      run:
+      run: |
         cd tests/playwright
         npx playwright test
     - uses: actions/upload-artifact@v3
