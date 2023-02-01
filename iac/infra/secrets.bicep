@@ -42,6 +42,6 @@ resource cosmosSecret 'core/Secret@v1' = {
     name: 'cosmos'
   }
   stringData: {
-    accountKey: cosmosAccountKey
+    masterKey: cosmosAccountKey
   }
 }
