@@ -34,7 +34,6 @@ module backend 'app/backend.bicep' = {
   params: {
     containerRegistry: containerRegistry.properties.loginServer
     kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
-    serviceBusNamespaceConnectionString: serviceBusAuthRule.listKeys().primaryConnectionString
   }
 }
 
