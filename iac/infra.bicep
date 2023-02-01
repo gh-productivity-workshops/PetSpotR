@@ -60,3 +60,11 @@ module aks 'infra/aks.bicep' = {
     clusterName: 'petspotr'
   }
 }
+
+module loadTest 'infra/loadtest.bicep' = {
+  name: 'loadtest'
+  params: {
+    location: location
+    loadTestName: 'petspotr'
+  }
+}
