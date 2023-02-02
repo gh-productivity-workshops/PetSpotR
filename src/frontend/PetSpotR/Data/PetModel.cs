@@ -11,7 +11,6 @@ namespace PetSpotR.Models
         public string ID { get; set; }
         public string State { get; set; }
         public List<string> Images { get; set; }
-        private readonly ILogger<PetModel> _logger;
 
         // Constructor
         public PetModel()
@@ -27,7 +26,6 @@ namespace PetSpotR.Models
         public async Task SavePetStateAsync(DaprClient daprClient, string storeName)
         {
             try {
-                //Logger.LogInformation("Saving state");
                 await daprClient.SaveStateAsync(
                     storeName: storeName,
                     key: ID,
@@ -42,7 +40,6 @@ namespace PetSpotR.Models
                 }
             );
             } catch (Exception ex) {
-                //Logger.LogError("Error: {Error}", ex.InnerException);
                 throw ex;
             }
 
