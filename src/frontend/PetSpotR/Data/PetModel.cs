@@ -1,5 +1,4 @@
 using Dapr.Client;
-using Microsoft.Extensions.Logging;
 
 namespace PetSpotR.Models 
 {
@@ -39,8 +38,8 @@ namespace PetSpotR.Models
                         { "petImages", string.Join(",", Images) }
                 }
             );
-            } catch (Exception ex) {
-                throw ex;
+            } catch {
+                throw;
             }
 
             return;
@@ -49,7 +48,6 @@ namespace PetSpotR.Models
         public async Task PublishLostPetAsync(DaprClient daprClient, string pubsubName)
         {
             try {
-                // Logger.LogInformation("Publishing event");
                 await daprClient.PublishEventAsync(
                     pubsubName: pubsubName,
                     topicName: "lostPet",
@@ -58,9 +56,8 @@ namespace PetSpotR.Models
                         { "petId", ID }
                     }
                 );
-            } catch (Exception ex) {
-                // Logger.LogError("Error: {Error}", ex.InnerException);
-                throw ex;
+            } catch {
+                throw;
             }
 
             return;
