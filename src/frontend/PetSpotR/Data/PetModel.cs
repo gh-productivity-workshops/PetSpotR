@@ -30,17 +30,8 @@ namespace PetSpotR.Models
                 await daprClient.SaveStateAsync(
                     storeName: storeName,
                     key: ID,
-                    value: new Dictionary<string, string>
-                    {
-                        { "petName", Name },
-                        { "petType", Type },
-                        { "petBreed", Breed },
-                        { "petOwnerEmail", OwnerEmail },
-                        { "petId", ID },
-                        { "petState", State },
-                        { "petImages", string.Join(",", Images) }
-                }
-            );
+                    value: this
+                );
             } catch {
                 throw;
             }
