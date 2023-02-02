@@ -7,6 +7,7 @@ namespace PetSpotR.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public string Breed { get; set; }
+        public string OwnerEmail { get; set; }
         public string ID { get; set; }
         public string State { get; set; }
         public List<string> Images { get; set; }
@@ -17,6 +18,7 @@ namespace PetSpotR.Models
             Name = "";
             Type = "";
             Breed = "";
+            OwnerEmail = "";
             ID = Guid.NewGuid().ToString();
             State = "new";
             Images = new();
@@ -33,6 +35,7 @@ namespace PetSpotR.Models
                         { "petName", Name },
                         { "petType", Type },
                         { "petBreed", Breed },
+                        { "petOwnerEmail", OwnerEmail },
                         { "petId", ID },
                         { "petState", State },
                         { "petImages", string.Join(",", Images) }

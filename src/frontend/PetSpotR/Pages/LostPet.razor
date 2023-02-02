@@ -11,7 +11,7 @@
 
 <EditForm Model="@petModel" OnSubmit="@HandleSubmit" >
     <div class="form-container">
-        <h2>Step 1: Tell us about your pet</h2>
+        <h2>Step 1: Tell us about your pet and how to contact you</h2>
         <div class="form-group row justify-content-center">
             <label for="petName" class="col-2 col-form-label">Pet Name</label>
             <div class="col-4">
@@ -31,6 +31,12 @@
             <label for="petBreed" class="col-2 col-form-label">Pet Breed</label>
             <div class="col-4">
                 <InputText id="breed" @bind-Value="petModel.Breed" />
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <label for="petOwnerEmail" class="col-2 col-form-label">Owner Email</label>
+            <div class="col-4">
+                <InputText id="owneremail" @bind-Value="petModel.OwnerEmail" />
             </div>
         </div>
         <h2>Step 2: Upload images of your pet</h2>
