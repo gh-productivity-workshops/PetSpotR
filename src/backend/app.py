@@ -38,27 +38,6 @@ def lostPet():
 
     print(f'Lost pet: {petId}', flush=True)
 
-    try: 
-        result = dapr.get_state(store_name=statestore, key=petId)
-        data = json.loads(result.data)
-        print(f'Pet state retrieved', flush=True)
-    except Exception as e:
-        print(f'Error: {e}', flush=True)
-
-    # Convert comma separated string to list
-    images = data['petImages'].split(',')
-    try:
-        for image in images:
-            print(f'Image: {image}', flush=True)
-            imageData = dapr.invoke_binding(
-                binding_name='images',
-                operation='get',
-                binding_metadata={'blobName': image}
-            )
-            print(f'Image retrieved', flush=True)
-    except Exception as e:
-        print(f'Error: {e}', flush=True)
-
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 @app.route('/foundPet', methods=['POST'])
