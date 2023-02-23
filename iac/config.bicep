@@ -1,5 +1,5 @@
 @description('Name of the AKS cluster. Defaults to a unique hash prefixed with "petspotr-"')
-param clusterName string = 'petspotr-${uniqueString(resourceGroup().id)}'
+param clusterName string = 'petspotr'
 
 @description('Azure Storage Account name')
 param storageAccountName string = 'petspotr${uniqueString(resourceGroup().id)}'
