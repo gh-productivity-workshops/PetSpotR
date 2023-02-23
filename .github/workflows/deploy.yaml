@@ -11,10 +11,11 @@ on:
   workflow_dispatch:
   
 env:
+  CLUSTER_NAME: petspotr
   REGISTRY_ADDRESS: petspotr.azurecr.io
 
 jobs:
-  deploy:
+  infra:
     name: Deploy Infrastructure
     runs-on: ubuntu-latest
     steps:
@@ -46,8 +47,7 @@ jobs:
           az deployment group create \
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --template-file iac/config.bicep \
-            --parameters storageAccountName=petspotr cosmosAccountName=petspotr clusterName=petspotr serviceBusAuthorizationRuleName=petspotr/Dapr
+            --template-file iac/config.bicep
   helm:
     name: Install Helm Charts
     runs-on: ubuntu-latest
@@ -64,7 +64,7 @@ jobs:
           az aks get-credentials \
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --name petspotr
+            --name ${{ env.CLUSTER_NAME }}
       - name: Deploy Keda Chart
         run: |
           helm repo add kedacore https://kedacore.github.io/charts
@@ -74,7 +74,7 @@ jobs:
         run: |
           helm repo add dapr https://dapr.github.io/helm-charts/
           helm repo update
-          helm upgrade dapr dapr/dapr --install --version=1.9 --namespace dapr-system --create-namespace --wait
+          helm upgrade dapr dapr/dapr --install --version=1.10 --namespace dapr-system --create-namespace --wait
   keda:
     name: Install KEDA scalers
     runs-on: ubuntu-latest
@@ -93,7 +93,7 @@ jobs:
           az aks get-credentials \
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --name petspotr
+            --name ${{ env.CLUSTER_NAME }}
       - name: Deploy KEDA scalers
         run: |
           kubectl apply -f iac/keda/scaler-servicebus.yaml
@@ -115,12 +115,12 @@ jobs:
           az aks get-credentials \
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --name petspotr
+            --name ${{ env.CLUSTER_NAME }}
       - name: Deploy Dapr components
         run: |
-          kubectl apply -f iac/dapr/images.yaml
-          kubectl apply -f iac/dapr/pubsub.yaml
-          kubectl apply -f iac/dapr/pets.yaml
+          kubectl apply -f iac/dapr/azure/images.yaml
+          kubectl apply -f iac/dapr/azure/pubsub.yaml
+          kubectl apply -f iac/dapr/azure/pets.yaml
   containers:
     name: Build and publish Docker containers
     runs-on: ubuntu-latest
@@ -134,7 +134,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Login to ACR
         run: |
-          az acr login --name petspotr
+          az acr login --name ${{ env.REGISTRY_ADDRESS }}
       - name: Build and Push Backend
         uses: docker/build-push-action@v2
         with:
@@ -171,11 +171,10 @@ jobs:
           az aks get-credentials \
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --name petspotr
+            --name ${{ env.CLUSTER_NAME }}
       - name: Deploy Application
         run: |
           az deployment group create \
             --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
             --template-file iac/app.bicep \
-            --parameters registryName=petspotr clusterName=petspotr serviceBusAuthRuleName=petspotr/Dapr
