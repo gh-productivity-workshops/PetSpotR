@@ -1,0 +1,14 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: images
+spec:
+  type: bindings.localstorage
+  version: v1
+  metadata:
+  ## Windows
+  - name: rootPath
+    value: C:\tmp\images
+  ## Linux
+  # - name: actorStateStore
+  #   value: /tmp/images
