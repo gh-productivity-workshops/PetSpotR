@@ -34,7 +34,7 @@ jobs:
   config:
     name: Deploy configuration and secrets
     runs-on: ubuntu-latest
-    needs: deploy
+    needs: infra
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -51,7 +51,7 @@ jobs:
   helm:
     name: Install Helm Charts
     runs-on: ubuntu-latest
-    needs: deploy
+    needs: infra
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -124,7 +124,7 @@ jobs:
   containers:
     name: Build and publish Docker containers
     runs-on: ubuntu-latest
-    needs: deploy
+    needs: infra
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
