@@ -2,7 +2,7 @@
 param location string = resourceGroup().location
 
 @description('Name of the AKS cluster. Defaults to a unique hash prefixed with "petspotr-"')
-param clusterName string = 'petspotr-${uniqueString(resourceGroup().id)}'
+param clusterName string = 'petspotr'
 
 @description('The size of the Virtual Machine.')
 param agentVMSize string = 'standard_d2s_v3'

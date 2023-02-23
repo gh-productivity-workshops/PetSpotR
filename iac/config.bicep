@@ -2,13 +2,13 @@
 param clusterName string = 'petspotr-${uniqueString(resourceGroup().id)}'
 
 @description('Azure Storage Account name')
-param storageAccountName string
+param storageAccountName string = 'petspotr${uniqueString(resourceGroup().id)}'
 
 @description('Azure CosmosDB account name')
-param cosmosAccountName string
+param cosmosAccountName string = 'petspotr-${uniqueString(resourceGroup().id)}'
 
 @description('Azure Service Bus authorization rule name')
-param serviceBusAuthorizationRuleName string
+param serviceBusAuthorizationRuleName string = 'petspotr-${uniqueString(resourceGroup().id)}/Dapr'
 
 resource aksCluster 'Microsoft.ContainerService/managedClusters@2022-05-02-preview' existing = {
   name: clusterName
