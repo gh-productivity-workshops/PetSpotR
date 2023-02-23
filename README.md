@@ -19,6 +19,9 @@ It also leverages popular open-source projects such as Dapr and Keda to provide 
    ```bash
    dapr init
    ```
+1. Configure your Dapr images component for Windows or Mac
+   1. Open ./iac/dapr/local/images.yaml
+   1. Uncomment the appropriate section for your OS, and comment out the other section
 1. Run the backend
    ```bash
    cd src/backend
