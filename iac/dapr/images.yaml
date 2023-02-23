@@ -7,7 +7,9 @@ spec:
   version: v1
   metadata:
   - name: accountName
-    value: petspotr
+    secretKeyRef:
+      name: storage
+      key: accountName
   - name: containerName
     value: images
   - name: accountKey

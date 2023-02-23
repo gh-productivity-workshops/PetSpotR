@@ -2,7 +2,10 @@
 @secure()
 param kubeConfig string
 
-@description('Azure Storage Accont key')
+@description('Azure Storage Account name')
+param storageAccountName string
+
+@description('Azure Storage Account key')
 @secure()
 param storageAccountKey string
 
@@ -36,6 +39,7 @@ resource storageSecret 'core/Secret@v1' = {
     name: 'storage'
   }
   stringData: {
+    accountName: storageAccountName
     accountKey: storageAccountKey
   }
 }

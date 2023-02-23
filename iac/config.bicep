@@ -32,6 +32,7 @@ module secrets 'infra/secrets.bicep' = {
     cosmosUrl: cosmosAccount.properties.documentEndpoint
     cosmosAccountKey: cosmosAccount.listKeys().primaryMasterKey
     kubeConfig: aksCluster.listClusterAdminCredential().kubeconfigs[0].value
+    storageAccountName: storageAccount.name
     storageAccountKey: storageAccount.listKeys().keys[0].value
     serviceBusConnectionString: serviceBusAuthorizationRule.listKeys().primaryConnectionString
   }
