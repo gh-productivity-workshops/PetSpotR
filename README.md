@@ -12,12 +12,31 @@ It also leverages popular open-source projects such as Dapr and Keda to provide 
 
 ![architecture](./img/architecture.png)
 
-## Deploying this application
+## Running locally
+
+1. Install the [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
+1. Initialize Dapr
+   ```bash
+   dapr init
+   ```
+1. Run the backend
+   ```bash
+   cd src/backend
+   dapr run --app-id backend --app-port 6002 --components-path ../../iac/dapr/local -- python app.py
+   ```
+1. Run the frontend
+   ```bash
+   cd src/frontend/PetSpotR
+   dapr run --app-id frontend --app-port 5114 --components-path ../../../iac/dapr/local -- dotnet watch
+   ```
+1. Navigate to http://localhost:5114
+
+## Deploying this application via CLI
 
 1. Ensure you have access to an Azure subscription and the Azure CLI installed
    ```bash
    az login
-   az accouunt set --subscription "My Subscription"
+   az account set --subscription "My Subscription"
    ```
 1. Clone this repository
    ```bash
@@ -32,7 +51,36 @@ It also leverages popular open-source projects such as Dapr and Keda to provide 
    ```bash
    az deployment group deployment create --resource-group myrg --template-file ./iac/config.json
    ```
+1. Get AKS credentials
+   ```bash
+   az aks get-credentials --resource-group myrg --name petspotr
+   ```
+1. Install Helm Charts
+   ```bash
+   helm repo add dapr https://dapr.github.io/helm-charts/
+   helm repo add kedacore https://kedacore.github.io/charts
+   helm repo update
+   helm upgrade dapr dapr/dapr --install --version=1.10 --namespace dapr-system --create-namespace --wait
+   helm upgrade keda kedacore/keda --install --version=2.9.4 --namespace keda --create-namespace --wait
+   ```
+1. Log into Azure Container Registry
+   You can get your registry name from your resource group in the Azure Portal
+   ```bash
+   az acr login --name myacr
+   ```
+1. Build and push containers
+   ```bash
+   docker build -t myacr.azurecr.io/backend:latest ./src/backend
+   docker build -t myacr.azurecr.io/frontend:latest ./src/frontend
+   docker push myacr.azurecr.io/petspotr:latest
+   docker push myacr.azurecr.io/frontend:latest
+   ```
 1. Deploy the application
    ```bash
    az deployment group deployment create --resource-group myrg --template-file ./iac/app.json
    ```
+1. Get your frontend URL
+   ```bash
+   kubectl get svc
+   ```
+1. Navigate to your frontend URL
