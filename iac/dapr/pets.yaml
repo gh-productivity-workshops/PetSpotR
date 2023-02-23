@@ -7,7 +7,9 @@ spec:
   version: v1
   metadata:
   - name: url
-    value: https://petspotr.documents.azure.com:443/
+    secretKeyRef:
+      name: cosmos
+      key: url
   - name: masterKey
     secretKeyRef:
       name: cosmos

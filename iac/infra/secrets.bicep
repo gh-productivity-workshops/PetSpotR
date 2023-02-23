@@ -6,6 +6,9 @@ param kubeConfig string
 @secure()
 param storageAccountKey string
 
+@description('Azure CosmosDB URL')
+param cosmosUrl string
+
 @description('Azure CosmosDB account key')
 @secure()
 param cosmosAccountKey string
@@ -42,6 +45,7 @@ resource cosmosSecret 'core/Secret@v1' = {
     name: 'cosmos'
   }
   stringData: {
+    url: cosmosUrl
     masterKey: cosmosAccountKey
   }
 }
