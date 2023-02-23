@@ -12,7 +12,7 @@ on:
   
 env:
   CLUSTER_NAME: petspotr
-  REGISTRY_ADDRESS: petspotr.azurecr.io
+  REGISTRY_ADDRESS: petspotrspvxk42ak6y3u.azurecr.io
 
 jobs:
   infra:
