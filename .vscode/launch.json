@@ -1,0 +1,66 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "frontend",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/frontend/PetSpotR/bin/Debug/net7.0/PetSpotR.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/frontend/PetSpotR",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        },
+        {
+            "type": "python",
+            "request": "launch",
+            "name": "backend with Dapr",
+            "program": "${workspaceFolder}/src/backend/app.py",
+            "console": "integratedTerminal",
+            "preLaunchTask": "daprd-debug-backend",
+            "postDebugTask": "daprd-down-backend"
+        },
+        {
+            "name": "frontend with Dapr",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "daprd-debug-frontend",
+            "program": "${workspaceFolder}/src/frontend/PetSpotR/bin/Debug/net7.0/PetSpotR.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/frontend/PetSpotR",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "postDebugTask": "daprd-down-frontend"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "✅ Debug with Dapr",
+            "configurations": ["backend with Dapr", "frontend with Dapr"]
+        }
+    ]
+}
