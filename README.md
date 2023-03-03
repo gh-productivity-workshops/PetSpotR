@@ -10,6 +10,8 @@ It also leverages popular open-source projects such as Dapr and Keda to provide 
 
 ## Featured technologies
 
+- [Bicep](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview) - Infrastructure as code
+- [Bicep extensibility Kubernetes provider](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-extensibility-kubernetes-provider) - Model Kubernetes resources in Bicep
 - [Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
 - [Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction)
 - [Azure Cosmos DB](https://docs.microsoft.com/en-us/azure/cosmos-db/introduction)
