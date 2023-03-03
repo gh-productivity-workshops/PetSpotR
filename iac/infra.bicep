@@ -7,7 +7,7 @@ param location string = resourceGroup().location
   'cloud'
   'dev'
 ])
-param mode string
+param mode string = 'cloud'
 
 module storage 'infra/storage.bicep' = {
   name: 'storage'
