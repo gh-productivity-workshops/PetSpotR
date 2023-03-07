@@ -1,7 +1,5 @@
 # PetSpotR
 
-[![Build and deploy](https://github.com/Azure-Samples/PetSpotR/actions/workflows/deploy.yaml/badge.svg)](https://github.com/Azure-Samples/PetSpotR/actions/workflows/deploy.yaml)
-
 PetSpotR allows you to use advanced AI models to report and find lost pets. It is a sample application that uses Azure Machine Learning to train a model to detect pets in images.
 
 It also leverages popular open-source projects such as Dapr and Keda to provide a scalable and resilient architecture.
