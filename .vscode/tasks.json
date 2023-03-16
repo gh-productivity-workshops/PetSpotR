@@ -43,7 +43,7 @@
             "appPort": 5114,
             "type": "daprd",
             "dependsOn": "build",
-            "componentsPath": "${workspaceFolder}/iac/dapr/local"
+            "componentsPath": "./iac/dapr/local"
         },
         {
             "label": "daprd-down-frontend",
@@ -55,7 +55,7 @@
             "type": "daprd",
             "appId": "backend",
             "appPort": 6002,
-            "componentsPath": "${workspaceFolder}/iac/dapr/local",
+            "componentsPath": "./iac/dapr/local",
             "httpPort": 53109,
             "grpcPort": 53317,
             "metricsPort": 9091
