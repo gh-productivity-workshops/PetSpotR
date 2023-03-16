@@ -39,11 +39,11 @@
         },
         {
             "label": "daprd-debug-frontend",
+            "type": "daprd",
             "appId": "frontend",
             "appPort": 5114,
-            "type": "daprd",
-            "dependsOn": "build",
-            "componentsPath": "./iac/dapr/local"
+            "componentsPath": "./iac/dapr/local",
+            "dependsOn": "build"
         },
         {
             "label": "daprd-down-frontend",
@@ -54,7 +54,7 @@
             "label": "daprd-debug-backend",
             "type": "daprd",
             "appId": "backend",
-            "appPort": 6002,
+            "appPort": 5000,
             "componentsPath": "./iac/dapr/local",
             "httpPort": 53109,
             "grpcPort": 53317,
