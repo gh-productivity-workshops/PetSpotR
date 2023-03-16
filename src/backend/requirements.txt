@@ -2,3 +2,7 @@ Flask
 dapr
 cloudevents
 typing_extensions
+IPython
+azure-ai-ml==1.0.0
+azure-identity
+datasets==2.3.2
