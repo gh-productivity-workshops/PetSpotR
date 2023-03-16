@@ -13,8 +13,8 @@ import json
 import requests
 import os
 
-storage_account = os.environ["STORAGE_ACCOUNT"]
-region = os.environ["REGION"]
+storage_account = os.environ.get('STORAGE_ACCOUNT', '')
+region = os.environ.get('REGION', '')
 
 experiment_name = (
     "AzureML-Train-Finetune-Vision-MultiClass-Samples"
@@ -28,7 +28,7 @@ workspace_ml_client = None
 email_body = """
 <img src="petspotr.io/static/logo.png" />
 """
-
+'''
 try:
     workspace_ml_client = MLClient.from_config(credential)
     subscription_id = workspace_ml_client.subscription_id
@@ -37,9 +37,9 @@ try:
 except Exception as ex:
     print(ex)
     # Enter details of your AML workspace
-    subscription_id = os.environ["SUBSCRIPTION_ID"]
-    resource_group = os.environ["RESOURCE_GROUP"]
-    workspace_name = os.environ["WORKSPACE_NAME"]
+    subscription_id = os.environ.get('SUBSCRIPTION_ID', '')
+    resource_group = os.environ.get('RESOURCE_GROUP', '')
+    workspace_name = os.environ.get('WORKSPACE_NAME' ,'')
     workspace_ml_client = MLClient(
         credential, subscription_id, resource_group, workspace_name
     )
@@ -67,6 +67,7 @@ def create_pipeline(training_mltable_path, validation_mltable_path, pipeline_com
         valid_mltable_path=Input(type=AssetTypes.MLTABLE, path=validation_mltable_path),
         **pipeline_component_args,
     )
+'''
 
 class pet:
     def __init__(self, ID, Name, Type, Breed, Images, State, OwnerEmail):
@@ -79,6 +80,8 @@ class pet:
         self.OwnerEmail = OwnerEmail
 
     def train_model(self):
+        print('Training model')
+        '''
         # Process images
         index = 0
         train_validation_ratio = 5
@@ -161,10 +164,12 @@ class pet:
             pipeline_object, experiment_name=experiment_name
         )
         print(f"Pipeline created. URL: {pipeline_run.studio_url}")
-
+        '''
         return
 
     def predict_image(self):
+        print('Predicting image')
+        '''
         # Load image
         image_path = f'https://{storage_account}.blob.core.windows.net/images/{image}'
         imageData = Image(url=image_path)
@@ -184,6 +189,8 @@ class pet:
             return True
         else:
             return False
+        '''
+        return False
 
     def alert_owner(self, dapr_client: DaprClient):
         # Send email to owner
