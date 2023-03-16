@@ -1,18 +1,56 @@
 # PetSpotR
 
-[![Build and deploy](https://github.com/Azure-Samples/PetSpotR/actions/workflows/deploy.yaml/badge.svg)](https://github.com/Azure-Samples/PetSpotR/actions/workflows/deploy.yaml)
-
 PetSpotR allows you to use advanced AI models to report and find lost pets. It is a sample application that uses Azure Machine Learning to train a model to detect pets in images.
 
 It also leverages popular open-source projects such as Dapr and Keda to provide a scalable and resilient architecture.
 
 ![Logo](./img/logo.svg)
 
+## Featured technologies
+
+- [Bicep](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview) - Infrastructure as code
+- [Bicep extensibility Kubernetes provider](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-extensibility-kubernetes-provider) - Model Kubernetes resources in Bicep
+- [Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes)
+- [Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction)
+- [Azure Cosmos DB](https://docs.microsoft.com/en-us/azure/cosmos-db/introduction)
+- [Azure Service Bus](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview)
+- [Azure Machine Learning](https://learn.microsoft.com/en-us/azure/machine-learning/overview-what-is-azure-machine-learning)
+- [Hugging Face](https://huggingface.co) - AI model community
+- [Azure Load Testing](https://docs.microsoft.com/en-us/azure/load-testing/) - Application load testing
+- [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor) - Frontend web application
+- [Python Flask](https://pypi.org/project/Flask/) - Backend server
+- [Dapr](https://dapr.io) - Microservice building blocks
+- [KEDA](https://keda.sh) - Kubernetes event-driven autoscaling
+
 ## Architecture
+
+> **Note**: This application is a demo app which is not intended to be used in production. It is intended to demonstrate how to use Azure Machine Learning and other Azure services to build a scalable and resilient application. Use at your own risk.
+
+PetSpotR is a microservices application that uses [Azure Machine Learning](https://learn.microsoft.com/en-us/azure/machine-learning/overview-what-is-azure-machine-learning) to train a model to detect pets in images. It also uses Azure Blob Storage to store images and Azure Cosmos DB to store metadata, leveraging [Dapr](https://dapr.io) bindings and state management to abstract away the underlying infrastructure.
+
+The frontend is a [.NET Blazor application](https://learn.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-7.0) that allows users to upload images and view the results. The backend is a [Python Flask application](https://pypi.org/project/Flask/) that uses Azure Machine Learning to train and score the model.
 
 ![architecture](./img/architecture.png)
 
+The application scales using [KEDA](https://keda.sh), which allows you to scale based on the number of messages in a queue. The application uses Azure Service Bus to queue messages for the backend to process, leveraging [Dapr](https://dapr.io) pub/sub to abstract away the underlying infrastructure.
+
+[Azure Load Testing](https://learn.microsoft.com/en-us/azure/load-testing/overview-what-is-azure-load-testing) is used to simulate a large number of users uploading images to the application, which allows us to test the application's scalability.
+
+## Pre-requisites
+
+- [Azure subscription](https://azure.microsoft.com/free/)
+  - **Note**: This application will create Azure resources that <font color=red>**will incur costs**</font>. You will also need to manually request quota for `Standard NCSv3 Family Cluster Dedicated vCPUs` for Azure ML workspaces, as the default quota is 0.
+- [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli)
+- [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
+- [Helm](https://helm.sh/docs/intro/install/)
+- [Docker](https://docs.docker.com/get-docker/)
+- [Python 3.8](https://www.python.org/downloads/)
+- [Dotnet SDK](https://dotnet.microsoft.com/download/dotnet/)
+- [Bicep extensibility](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-extensibility-kubernetes-provider#enable-the-preview-feature)
+
 ## Running locally
+
+The services in this application can be run locally using the Dapr CLI. This is useful for development and testing. The ML training and scoring will run within an Azure Machine Learning workspace in your Azure subscription.
 
 1. Install the [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
 1. Initialize Dapr
@@ -22,6 +60,10 @@ It also leverages popular open-source projects such as Dapr and Keda to provide 
 1. Configure your Dapr images component for Windows or Mac
    1. Open ./iac/dapr/local/images.yaml
    1. Uncomment the appropriate section for your OS, and comment out the other section
+1. Deploy the required Azure resources
+   ```bash
+   az deployment group create --resource-group myrg --template-file ./iac/infra.bicep --parameters mode=dev
+   ```
 1. Run the backend
    ```bash
    cd src/backend

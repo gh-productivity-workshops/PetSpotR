@@ -2,6 +2,13 @@
 
 param location string = resourceGroup().location
 
+@description('Which mode to deploy the infrastructure. Defaults to cloud, which deploys everything. The mode dev only deploys the resources needed for local development.')
+@allowed([
+  'cloud'
+  'dev'
+])
+param mode string = 'cloud'
+
 module storage 'infra/storage.bicep' = {
   name: 'storage'
   params: {
@@ -33,28 +40,28 @@ module aml 'infra/aml.bicep' = {
   }
 }
 
-module servicebus 'infra/servicebus.bicep' = {
+module servicebus 'infra/servicebus.bicep' = if (mode == 'cloud') {
   name: 'servicebus'
   params: {
     location: location
   }
 }
 
-module cosmos 'infra/cosmosdb.bicep' = {
+module cosmos 'infra/cosmosdb.bicep' = if (mode == 'cloud') {
   name: 'cosmos'
   params: {
     location: location
   }
 }
 
-module aks 'infra/aks.bicep' = {
+module aks 'infra/aks.bicep' = if (mode == 'cloud') {
   name: 'aks'
   params: {
     location: location
   }
 }
 
-module loadTest 'infra/loadtest.bicep' = {
+module loadTest 'infra/loadtest.bicep' = if (mode == 'cloud') {
   name: 'loadtest'
   params: {
     location: location

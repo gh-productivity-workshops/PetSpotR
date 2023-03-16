@@ -3,6 +3,7 @@ from cloudevents.http import from_http
 import json
 import os
 from dapr.clients import DaprClient
+from petspotr import pet
 
 app = Flask(__name__)
 app_port = os.getenv('APP_PORT', '5000')
@@ -33,20 +34,47 @@ def subscribe():
 
 @app.route('/lostPet', methods=['POST'])
 def lostPet():
+    # Get Dapr pub/sub message
     event = from_http(request.headers, request.get_data())
-    petId = event.data['petId']
+    id = event.data['ID']
 
-    print(f'Lost pet: {petId}', flush=True)
+    # Get pet details from Dapr state store
+    try: 
+        result = dapr.get_state(store_name=statestore, key=id)
+        data = json.loads(result.data)
+        print(f'Pet state retrieved', flush=True)
+    except Exception as e:
+        print(f'Error: {e}', flush=True)
+    p = pet(
+            data['ID'],
+            data['Name'],
+            data['Type'],
+            data['Breed'],
+            data['Images'],
+            data['State'],
+            data['OwnerEmail']
+        )
+    
+    # Fine-tune PetMatch model with new pet information
+    p.train_model()
 
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
 
 @app.route('/foundPet', methods=['POST'])
 def foundPet():
     event = from_http(request.headers, request.get_data())
-    imagePath = event.data['imagePath']
-    type = event.data['type']
-    breed = event.data['breed']
-    print(f'Subscriber received : {imagePath}, {type}, {breed}', flush=True)
+    data = json.loads(event.data)
+
+    p = pet(
+        data['ID'],
+        data['Image']
+    )
+
+    # Use ML inference endpoint to see if there is a match
+    match = p.predict_image()
+
+    if match:
+        p.alert_owner(dapr)
 
     # Return response
     return json.dumps({'success': True}), 200, {
