@@ -43,12 +43,20 @@
             "appId": "frontend",
             "appPort": 5114,
             "componentsPath": "./iac/dapr/local",
+            "httpPort": 3501,
+            "grpcPort": 50001,
+            "metricsPort": 9091,
             "dependsOn": "build"
         },
         {
             "label": "daprd-down-frontend",
-            "appId": "frontend",
-            "type": "daprd-down"
+            "type": "shell",
+            "command":[ "dapr stop --app-id frontend" ],
+            "presentation": {
+                "clear": true,
+                "close": true,
+                "reveal": "never"
+           }
         },
         {
             "label": "daprd-debug-backend",
@@ -56,14 +64,19 @@
             "appId": "backend",
             "appPort": 5000,
             "componentsPath": "./iac/dapr/local",
-            "httpPort": 53109,
-            "grpcPort": 53317,
-            "metricsPort": 9091
+            "httpPort": 3502,
+            "grpcPort": 50002,
+            "metricsPort": 9092
         },
         {
             "label": "daprd-down-backend",
-            "type": "daprd-down",
-            "appId": "backend"
+            "type": "shell",
+            "command":[ "dapr stop --app-id backend" ],
+            "presentation": {
+                "clear": true,
+                "close": true,
+                "reveal": "never"
+           }
         }
     ]
 }
