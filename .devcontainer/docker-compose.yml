@@ -13,10 +13,10 @@ services:
     command: sleep infinity
 
     network_mode: service:redis
-  redis:
-    image: redis:latest
-    volumes:
-      # Forwards the local Docker socket to the container.
-      - /var/run/docker.sock:/var/run/docker-host.sock
-    ports:
-      - "6379"
+  #redis:
+  #  image: redis:latest
+  #  volumes:
+  #    # Forwards the local Docker socket to the container.
+  #    - /var/run/docker.sock:/var/run/docker-host.sock
+  #  ports:
+  #    - "6379"
