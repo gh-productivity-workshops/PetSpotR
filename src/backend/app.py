@@ -36,7 +36,7 @@ def subscribe():
 def lostPet():
     # Get Dapr pub/sub message
     event = from_http(request.headers, request.get_data())
-    id = event.data['ID']
+    id = event.data['petId']
 
     # Get pet details from Dapr state store
     try: 
@@ -46,13 +46,13 @@ def lostPet():
     except Exception as e:
         print(f'Error: {e}', flush=True)
     p = pet(
-            data['ID'],
-            data['Name'],
-            data['Type'],
-            data['Breed'],
-            data['Images'],
-            data['State'],
-            data['OwnerEmail']
+            data['id'],
+            data['name'],
+            data['type'],
+            data['breed'],
+            data['images'],
+            data['state'],
+            data['ownerEmail']
         )
     
     # Fine-tune PetMatch model with new pet information
@@ -66,7 +66,7 @@ def foundPet():
     data = json.loads(event.data)
 
     p = pet(
-        data['ID'],
+        data['petId'],
         data['Image']
     )
 

@@ -1,14 +1,20 @@
 {
     "name": "PetSpotR",
     // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "app",
-    "workspaceFolder": "/workspace",
+    "image": "mcr.microsoft.com/devcontainers/dotnet:0-7.0",
+    "workspaceFolder": "/workspaces/PetSpotR",
+
+    "onCreateCommand": "bash ./.devcontainer/on-setup.sh",
+    
+    "runArgs": [
+      "--privileged",
+		  "--init"
+    ],
   
     // Features to add to the dev container. More info: https://containers.dev/features.
     "features": {
       "ghcr.io/devcontainers/features/python:1": {},
-      "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+      "ghcr.io/devcontainers/features/docker-in-docker:2": {}
     },
   
     // Configure tool-specific properties.
@@ -16,14 +22,14 @@
       // Configure properties specific to VS Code.
       "vscode": {
         "settings": {},
-        "extensions": ["ms-azuretools.vscode-dapr", "ms-dotnettools.csharp", "ms-azuretools.vscode-docker", "ms-python.python"]
+        "extensions": ["ms-azuretools.vscode-dapr", "ms-dotnettools.csharp", "ms-azuretools.vscode-docker", "ms-python.python", "dunn.redis"]
       }
     },
   
     "remoteEnv": {
       "PATH": "${containerEnv:PATH}:/home/vscode/.dapr/bin",
       "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
-    },
+    }
   
     // Use 'portsAttributes' to set default properties for specific forwarded ports.
     // More info: https://containers.dev/implementors/json_reference/#port-attributes
@@ -38,8 +44,6 @@
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [5000, 5001],
   
-    // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "./.devcontainer/post-setup.sh"
     // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
     // "remoteUser": "root"
   }
