@@ -38,18 +38,29 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "daprd-debug-frontend",
-            "type": "daprd",
-            "appId": "frontend",
-            "appPort": 5114,
-            "componentsPath": "./iac/dapr/local",
-            "httpPort": 3501,
-            "grpcPort": 50001,
-            "metricsPort": 9091,
-            "dependsOn": "build"
+            "label": "dapr-up-frontend",
+            "type": "shell",
+            "command": [ "dapr run --app-id frontend --app-port 5114 --components-path ./iac/dapr/local --dapr-http-port 3501 --dapr-grpc-port 50001"],
+            "isBackground": true,
+            "dependsOn": "build",
+            "problemMatcher": [
+                {
+                    "owner": "dapr",
+                    "fileLocation": "absolute",
+                    "pattern": {
+                        "regexp": "^(.*)$",
+                        "message": 1
+                    },
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": ".*",
+                        "endsPattern": ".*"
+                    }
+                }
+            ],
         },
         {
-            "label": "daprd-down-frontend",
+            "label": "dapr-down-frontend",
             "type": "shell",
             "command":[ "dapr stop --app-id frontend" ],
             "presentation": {
@@ -59,17 +70,29 @@
            }
         },
         {
-            "label": "daprd-debug-backend",
-            "type": "daprd",
-            "appId": "backend",
-            "appPort": 5000,
-            "componentsPath": "./iac/dapr/local",
-            "httpPort": 3502,
-            "grpcPort": 50002,
-            "metricsPort": 9092
+            "label": "dapr-up-backend",
+            "type": "shell",
+            "command": [ "dapr run --app-id backend --app-port 5000 --components-path ./iac/dapr/local --dapr-http-port 3502 --dapr-grpc-port 50002"],
+            "isBackground": true,
+            "dependsOn": "build",
+            "problemMatcher": [
+                {
+                    "owner": "dapr",
+                    "fileLocation": "absolute",
+                    "pattern": {
+                        "regexp": "^(.*)$",
+                        "message": 1
+                    },
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": ".*",
+                        "endsPattern": ".*"
+                    }
+                }
+            ],
         },
         {
-            "label": "daprd-down-backend",
+            "label": "dapr-down-backend",
             "type": "shell",
             "command":[ "dapr stop --app-id backend" ],
             "presentation": {

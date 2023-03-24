@@ -5,7 +5,6 @@
             "name": "frontend with Dapr",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "daprd-debug-frontend",
             "program": "${workspaceFolder}/src/frontend/PetSpotR/bin/Debug/net7.0/PetSpotR.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/frontend/PetSpotR",
@@ -22,7 +21,8 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
             },
-            "postDebugTask": "daprd-down-frontend"
+            "preLaunchTask": "dapr-up-frontend",
+            "postDebugTask": "dapr-down-frontend"
         },
         {
             "name": "backend with Dapr",
@@ -30,8 +30,8 @@
             "request": "launch",
             "program": "${workspaceFolder}/src/backend/app.py",
             "console": "integratedTerminal",
-            "preLaunchTask": "daprd-debug-backend",
-            "postDebugTask": "daprd-down-backend",
+            "preLaunchTask": "dapr-up-backend",
+            "postDebugTask": "dapr-down-backend",
             "env": {
                 "DAPR_HTTP_PORT": "3502",
                 "DAPR_GRPC_PORT": "50002"
@@ -41,7 +41,10 @@
     "compounds": [
         {
             "name": "✅ Debug with Dapr",
-            "configurations": ["backend with Dapr", "frontend with Dapr"],
+            "configurations": [
+                "backend with Dapr",
+                "frontend with Dapr"
+            ],
             "presentation": {
                 "hidden": false,
                 "group": "",
