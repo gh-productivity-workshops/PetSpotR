@@ -25,6 +25,13 @@ score_threshold = 0.7
 credential = DefaultAzureCredential()
 workspace_ml_client = None
 
+'''
+------------------------------------------------------------------------------------------------------------------------
+NOTE: The following code is commented out due to features not yet publicly available in the Azure ML SDK for Python.
+Stay tuned for updates as Azure ML and Hugging Face features become more widely available
+------------------------------------------------------------------------------------------------------------------------
+'''
+
 email_body = """
 <img src="petspotr.io/static/logo.png" />
 """
@@ -82,6 +89,8 @@ class pet:
     def train_model(self):
         print('Training model')
         '''
+        Temporarily commented out due to features not yet publicly available in the Azure ML SDK for Python.
+
         # Process images
         index = 0
         train_validation_ratio = 5
@@ -170,6 +179,7 @@ class pet:
     def predict_image(self):
         print('Predicting image')
         '''
+        Temporarily commented out due to features not yet publicly available in the Azure ML SDK for Python. For now this function returns True to simulate a successful prediction.
         # Load image
         image_path = f'https://{storage_account}.blob.core.windows.net/images/{image}'
         imageData = Image(url=image_path)
@@ -190,7 +200,7 @@ class pet:
         else:
             return False
         '''
-        return False
+        return True
 
     def alert_owner(self, dapr_client: DaprClient):
         # Send email to owner
