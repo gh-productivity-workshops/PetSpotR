@@ -26,17 +26,49 @@ It also leverages popular open-source projects such as Dapr and Keda to provide 
 
 > **Note**: This application is a demo app which is not intended to be used in production. It is intended to demonstrate how to use Azure Machine Learning and other Azure services to build a scalable and resilient application. Use at your own risk.
 
+### Local architecture
+
+![local architecture](./img/petspotr-local.png)
+
+### Cloud architecture
+
+Moving from local to cloud is as simple as swapping out the local Dapr components with their cloud equivalents:
+
+![cloud architecture](./img/petspotr-cloud.png)
+
+### Microservices
+
 PetSpotR is a microservices application that uses [Azure Machine Learning](https://learn.microsoft.com/en-us/azure/machine-learning/overview-what-is-azure-machine-learning) to train a model to detect pets in images. It also uses Azure Blob Storage to store images and Azure Cosmos DB to store metadata, leveraging [Dapr](https://dapr.io) bindings and state management to abstract away the underlying infrastructure.
 
 The frontend is a [.NET Blazor application](https://learn.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-7.0) that allows users to upload images and view the results. The backend is a [Python Flask application](https://pypi.org/project/Flask/) that uses Azure Machine Learning to train and score the model.
 
-![architecture](./img/architecture.png)
+### AI model training
+
+The application uses [Azure Machine Learning](https://learn.microsoft.com/en-us/azure/machine-learning/overview-what-is-azure-machine-learning) to train a model to detect pets in images. The model is sourced via [Hugging Face](https://huggingface.co), which is a community of AI researchers and developers. The model is trained using the [Azure Machine Learning Compute Instance](https://docs.microsoft.com/en-us/azure/machine-learning/concept-compute-instance), which is a managed compute environment for data scientists and AI developers.
+
+### State management
+
+The application uses the [Dapr](https://dapr.io) state management API to abstract away the underlying infrastructure. When the application is running locally, the state is stored in a lightweight Redis container. When the application is running in the cloud, the state is stored in Azure Cosmos DB.
+
+### Publish & subscribe messaging
+
+The application uses the [Dapr](https://dapr.io) pub/sub API to abstract away the underlying infrastructure. When the application is running locally, the messages are sent via a lightweight Redis container. When the application is running in the cloud, the messages are sent via Azure Service Bus.
+
+### Bindings
+
+The application uses the [Dapr](https://dapr.io) bindings API to abstract away the underlying infrastructure. When the application is running locally, the images are stored in the local filesystem. When the application is running in the cloud, the bindings are stored in Azure Blob Storage.
+
+### Scaling
 
 The application scales using [KEDA](https://keda.sh), which allows you to scale based on the number of messages in a queue. The application uses Azure Service Bus to queue messages for the backend to process, leveraging [Dapr](https://dapr.io) pub/sub to abstract away the underlying infrastructure.
 
+### Load testing
+
 [Azure Load Testing](https://learn.microsoft.com/en-us/azure/load-testing/overview-what-is-azure-load-testing) is used to simulate a large number of users uploading images to the application, which allows us to test the application's scalability.
 
-## Pre-requisites
+## Running PetSpotR
+
+### Prerequisites
 
 - [Azure subscription](https://azure.microsoft.com/free/)
   - **Note**: This application will create Azure resources that <font color=red>**will incur costs**</font>. You will also need to manually request quota for `Standard NCSv3 Family Cluster Dedicated vCPUs` for Azure ML workspaces, as the default quota is 0.
@@ -48,7 +80,15 @@ The application scales using [KEDA](https://keda.sh), which allows you to scale 
 - [Dotnet SDK](https://dotnet.microsoft.com/download/dotnet/)
 - [Bicep extensibility](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-extensibility-kubernetes-provider#enable-the-preview-feature)
 
-## Running locally
+### Run in a Codespace
+
+You can run this application in a [GitHub Codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace). This is useful for development and testing. The ML training and scoring will run within an Azure Machine Learning workspace in your Azure subscription.
+
+1. Click the `Code` button and select `Open with Codespaces`
+1. Wait for the Codespace to be created
+1. Hit 'F5' or open the `Run and Debug` tab and select `✅ Debug with Dapr`
+
+### Run locally
 
 The services in this application can be run locally using the Dapr CLI. This is useful for development and testing. The ML training and scoring will run within an Azure Machine Learning workspace in your Azure subscription.
 
@@ -76,7 +116,7 @@ The services in this application can be run locally using the Dapr CLI. This is 
    ```
 1. Navigate to http://localhost:5114
 
-## Deploying this application via CLI
+### Deploy to Azure with the CLI
 
 1. Ensure you have access to an Azure subscription and the Azure CLI installed
    ```bash
