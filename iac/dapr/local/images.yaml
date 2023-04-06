@@ -7,8 +7,8 @@ spec:
   version: v1
   metadata:
   ## Windows
-  - name: rootPath
-    value: C:\tmp\images
+  #- name: rootPath
+  #  value: C:\tmp\images
   ## Linux
-  # - name: actorStateStore
-  #   value: /tmp/images
+   - name: actorStateStore
+     value: /tmp/images
