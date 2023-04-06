@@ -1,22 +1,27 @@
 # Increasing Developer Productivity with GitHub Copilot and Codespaces
 
-Welcome to the workshop!
+👋 Welcome to the workshop!
 
-Codespaces:
+In this workshop, you'll learn lots of exciting skills around some of our most popular products. These include GitHub Codespaces and GitHub Copilot.
+
+### Codespaces
+
+Cloud computing has exploded in the past few decades. No longer do we need high spec computers with lots of credentials. Instead, we can code from almost anywhere in the world. [GitHub Codespaces](https://github.com/features/codespaces) is a fully configured development environment. You can spin up a Codespace in seconds, and all you need is an internet connection and a browser. In this workshop you'll learn how to:
+
 - Start a new Codespace
   - (What is a Codespace and the benefits?)
   - Rather than create, go to create with options
   - See the available machine sizes and talk about policies
   - Create and watch it happening
   - (talk about policies while setup is going on)
-- Run and Debug - use the "✅ Debug with Dapr" configuration
+- Run and Debug in a Codespace- use the "✅ Debug with Dapr" configuration
   - (Talk about ports and what's happening, port visibility)
   - In `src/backend/app.py`, put a breakpoint on line 45 (`print(f'Pet state retrieved', flush=True)`)
   - Open app on port 5114
   - Go to *I lost my pet* and fill out the form. Use any image, we don't actually process them.
   - Notice the breakpoint has been hit and you can examine the `data` object.
   - Stop the running debuggers
-- Codespaces Detail
+- Understand the details around Codespaces
   - Open the `.devcontainer/devcontainer.json` file and explore. (Focus on the following):
     - `image` - this is the docker image the Codespace uses. You can also create your own, and have a docker compose file for multi-stage builds.
     - `onCreateCommand` - this lets us run our own scripts when the Codespace is created. There's also `postCreateCommand` if you need to wait until everything is ready to go.
@@ -28,13 +33,16 @@ Codespaces:
     - Search for "Copilot" and select the GitHub Copilot extension (don't click Install!)
     - Rather than clicking install, click the cog icon and select "Add to devcontainer.json".
     - Go back to the `devcontainer.json` file and see the change. Note that the extension hasn't been installed at this point!
-  - Let's reload the Codespace so we can see the change.
+  - Reload your Codespace and see the changes.
     - Ctrl/Cmd-Shift-P, then type "rebuild" to find it. Choose the "Codespaces: Rebuild Container" option. Confirm the dialog by clicking "Rebuild" and wait for it to reload.
     - Once reloaded, you'll be able to see Copilot installed - both in the Extensions pane, as well as via the Copilot logo bottom right!
     - (Note: This may take a little while. While it's running, explain why - we were using Prebuilds before!)
 
-Copilot:
-- Let's add some more detail to our lost pet form - where the pet was last seen
+### GitHub Copilot
+
+In the past few months artifically intelligent (AI) programs have exploded. Everyone is using them for increased productivity. [GitHub Copilot](https://github.com/features/copilot) is your AI pair programmer. It can help you write, synthese, understand, and explain code. In this workshop you will learn how to:
+
+- Let's add more detail to our lost pet form using GitHub Copilot - where the pet was last seen
   - Add to the Lost Pet page:
     - Go to LostPet.razor (you can get there quickly with `Ctrl/Cmd-P`, then typing the filename)
     - (Ensure Copilot is turned on using the icon at the right of the status bar - explain you can turn it on or off here)
@@ -54,7 +62,7 @@ Copilot:
     - Add `public string Location { get; set; }`. Copilot may start helping you at some point, but if not, don't worry!
     - Add a new line after line 25 (`Images = new();`). Copilot will almost certainly fill in what we need (`Location = "";`), so hit Tab to accept.
 
-- Let's debug again to see the changes!
+- Debug using GitHub Copilot - you'll see the changes!
   - Save the files you've edited.
   - Use Run and Debug to debug the application again.
   - You'll see the new field.
@@ -62,7 +70,7 @@ Copilot:
 - (Optional exercise depending on time) Note that we've only made front-end changes. See if Copilot can help you make backend changes as well!
   - Look for where to add details about the location to `petspotr.py` and `app.py`
 
-- Let's use Copilot to help us write some tests
+- Use GitHub Copilot to write tests
   - In the `src/tests/playwright/tests` folder, create a new file called `lostpage.spec.ts`.
   - In that file, write a comment saying `// create playwright tests for LostPet.razor`
   - (Note that you should leave the LostPet.razor file open in VSCode so Copilot can see this context!)
