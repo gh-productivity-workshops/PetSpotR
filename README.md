@@ -1,5 +1,9 @@
 # PetSpotR
 
+## 🛠️ Here for a workshop? Go to the [workshop](workshop/README.md) folder to get started! 🛠️
+
+---
+
 PetSpotR allows you to use advanced AI models to report and find lost pets. It is a sample application that uses Azure Machine Learning to train a model to detect pets in images.
 
 It also leverages popular open-source projects such as Dapr and Keda to provide a scalable and resilient architecture.
