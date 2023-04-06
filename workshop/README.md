@@ -74,7 +74,7 @@ Now, we're about to use GitHub Copilot, so let's add that extension - not just t
 6. Using your keyboard, press Ctrl/Cmd-Shift-P, then type "rebuild" to find it.
 7. Click the "Codespaces: Rebuild Container" option.
 8. Confirm your choice by clicking "Rebuild" and wait for it to reload.
-9. Once reloaded, you'll be able to see GitHub Copilot installed - both in the Extensions pane, as well as via the Copilot logo bottom right!
+9. Once reloaded, you'll be able to see GitHub Copilot installed - both in the Extensions pane, as well as via the GitHub Copilot logo bottom right!
 (Note: This may take a little while. While it's running, your instructor will explain why - we were using Prebuilds before!)
 
 #### 5. More more detail to the form using GitHub Copilot
@@ -82,8 +82,8 @@ Now, we're about to use GitHub Copilot, so let's add that extension - not just t
 Let's add some more details to our lost pets form. For example, where the pet was last seen. Let's take a look at the Lost Pet page.
 
 1.  Go to LostPet.razor (you can get there quickly with `Ctrl/Cmd-P`, then typing the filename)
-2.  Ensure Copilot is turned on using the icon at the right of the status bar - explain you can turn it on or off here
-NOTE: Copilot is non-deterministic, it syntheses code just for you. So you will probably see something different on your screen thn the person next to you.
+2.  Ensure GitHub Copilot is turned on using the icon at the right of the status bar - explain you can turn it on or off here
+NOTE: GitHub Copilot is non-deterministic, it syntheses code just for you. So you will probably see something different on your screen thn the person next to you.
 3.  Go to line 50 and add a new line after the `</div>` but before `@if (isLoading)`
 4.  Type `<!-- Step 2.5 - pet's last location h2 element followed by a dropdown -->` - this is an HTML comment explaining what we want
 5.  Press Enter to go to the next line
@@ -92,7 +92,7 @@ NOTE: Copilot is non-deterministic, it syntheses code just for you. So you will 
 8.  GitHub Copilot should suggest an HTML dropdown with several locations, but they're probably not the right ones for us, so let's provide more context.
 9.  Update the comment to `<!-- Dropdown menu with 5 locations in [your city] -->` - replace [your city] with the name of your city and hit Enter again
 10.  GitHub Copilot should make some more accurate suggestions. Hit Tab to accept.
-11.  Make further changes to ensure `div` elements are closed, and modify as needed - Copilot is likely to help here as well.
+11.  Make further changes to ensure `div` elements are closed, and modify as needed - GitHub Copilot is likely to help here as well.
 
 #### 6. Add to the PetModel
 
@@ -100,8 +100,8 @@ Now you might notice that there's no Location field in PetModel (the red squiggl
 
 1. Use `Ctrl/Cmd-P` to search for `PetModel.cs` and go to that file
 2. Add a new line after line 13 (`public List<string> Images { get; set; }`)
-3. Add `public string Location { get; set; }`. Copilot may start helping you at some point, but if not, don't worry!
-4. Add a new line after line 25 (`Images = new();`). Copilot will almost certainly fill in what we need (`Location = "";`), so hit Tab to accept.
+3. Add `public string Location { get; set; }`. GitHub Copilot may start helping you at some point, but if not, don't worry!
+4. Add a new line after line 25 (`Images = new();`). GitHub Copilot will almost certainly fill in what we need (`Location = "";`), so hit Tab to accept.
 
 #### 7. Debugging using GitHub Copilot
 
@@ -121,7 +121,7 @@ Hint: look or where to add details about the location to `petspotr.py` and `app.
 
 1. In the `src/tests/playwright/tests` folder, create a new file called `lostpage.spec.ts`
 2. In that file, write a comment saying `// create playwright tests for LostPet.razor`
-(Note that you should leave the LostPet.razor file open in VSCode so Copilot can see this context!)
+(Note that you should leave the LostPet.razor file open in VSCode so GitHub Copilot can see this context!)
 3. On the next line, write a comment that says `// import dependencies` and hit Enter
 4. GitHub Copilot should suggest something like `import { test, expect } from @playwright/test`. If this doesn't work, try opening another test file for context - this is a good opportunity for your instructor to explain a little about how GitHub Copilot gets its context)
 5. Write a comment saying `// test that h2 element with the words "Step 1: Tell us about your pet and how to contact you" renders` and hit Enter
