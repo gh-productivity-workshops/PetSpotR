@@ -10,5 +10,5 @@ spec:
   #- name: rootPath
   #  value: C:\tmp\images
   ## Linux
-   - name: actorStateStore
-     value: /tmp/images
+   - name: rootPath
+     value: petimages
