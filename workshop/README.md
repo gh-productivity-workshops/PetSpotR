@@ -41,7 +41,7 @@ So now you know what you'll learn in this workshop, let's walk through the steps
 
 We'll be using an AI-powered pet lost-and-found app called PetSpotR. This web app is in C# and Python, and uses Dapr, Kubernetes and Keda, Bicep, Azure Machine Learning and a whole lot of other frameworks and technologies.
 
-😨 _Don't worry if you aren't familiar with these. This is where Codespaces and Copilot can help!_
+😨 _Don't worry if you aren't familiar with these. This is where Codespaces and GitHub Copilot can help!_
 
 ## 1. Start a new Codespace
 
