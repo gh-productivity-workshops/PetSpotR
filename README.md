@@ -1,6 +1,6 @@
 # PetSpotR
 
-## 🛠️ Here for a workshop? Go to the [workshop](workshop/README.md) folder to get started! 🛠️
+## 🛠️ Here for a workshop? Go to the [workshop](https://github.com/gh-productivity-workshops/PetSpotR/) folder to get started! 🛠️
 
 ---
 
