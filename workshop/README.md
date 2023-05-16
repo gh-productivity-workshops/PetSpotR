@@ -220,7 +220,7 @@ _🔎 Hint: look for where to add details about the pet's last known location in
 
 Finally, we're going to use GitHub Copilot to help us write some tests around our pages. This application already uses Playwright for testing, so let's build on that.
 
-1. In the `src/tests/playwright/tests` folder, create a new file called `lostpage.spec.ts`
+1. In the `tests/playwright/tests` folder, create a new file called `lostpage.spec.ts`
 ![New test file](images/20-new-test-file.png)
 
 2. In that file, write a comment that says:
