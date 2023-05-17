@@ -1,6 +1,8 @@
 // Infrastructure ----------------------------------------------------
 
-param location string = resourceGroup().location
+targetScope = 'subscription'
+
+param location string = 'westus2'
 
 @description('Which mode to deploy the infrastructure. Defaults to cloud, which deploys everything. The mode dev only deploys the resources needed for local development.')
 @allowed([
@@ -9,46 +11,22 @@ param location string = resourceGroup().location
 ])
 param mode string = 'cloud'
 
+resource resourceGroup 'Microsoft.Resources/resourceGroups@2022-09-01' = {
+  name: 'build-lab'
+  location: location
+}
+
 module storage 'infra/storage.bicep' = {
   name: 'storage'
+  scope: resourceGroup
   params: {
     location: location
-  }
-}
-
-module vault 'infra/keyvault.bicep' = {
-  name: 'vault'
-  params: {
-    location: location
-  }
-}
-
-module registry 'infra/container-registry.bicep' = {
-  name: 'registry'
-  params: {
-    location: location
-  }
-}
-
-module aml 'infra/aml.bicep' = {
-  name: 'aml'
-  params: {
-    location: location
-    containerRegistryId: registry.outputs.registryId
-    keyVaultId: vault.outputs.vaultId
-    storageAccountId: storage.outputs.storageAccountId
   }
 }
 
 module servicebus 'infra/servicebus.bicep' = if (mode == 'cloud') {
   name: 'servicebus'
-  params: {
-    location: location
-  }
-}
-
-module cosmos 'infra/cosmosdb.bicep' = if (mode == 'cloud') {
-  name: 'cosmos'
+  scope: resourceGroup
   params: {
     location: location
   }
@@ -56,14 +34,12 @@ module cosmos 'infra/cosmosdb.bicep' = if (mode == 'cloud') {
 
 module aks 'infra/aks.bicep' = if (mode == 'cloud') {
   name: 'aks'
+  scope: resourceGroup
   params: {
     location: location
   }
 }
 
-module loadTest 'infra/loadtest.bicep' = if (mode == 'cloud') {
-  name: 'loadtest'
-  params: {
-    location: location
-  }
-}
+output clusterName string = aks.outputs.aksCluster
+output storageAccountName string = storage.outputs.storageAccountName
+output serviceBusAuthorizationRuleName string = servicebus.outputs.serviceBusAuthRuleName

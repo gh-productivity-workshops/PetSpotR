@@ -41,5 +41,5 @@ resource namespace 'Microsoft.ServiceBus/namespaces@2022-01-01-preview' = {
 }
 
 output serviceBusId string = namespace.id
-output serviceBusAuthRuleName string = namespace::keda.name
+output serviceBusAuthRuleName string = '${namespace.name}/${namespace::keda.name}'
 output daprAuthRuleName string = namespace::dapr.name

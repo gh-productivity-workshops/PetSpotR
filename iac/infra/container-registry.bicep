@@ -16,3 +16,4 @@ resource acr 'Microsoft.ContainerRegistry/registries@2022-02-01-preview' = {
 }
 
 output registryId string = acr.id
+output registryName string = acr.name

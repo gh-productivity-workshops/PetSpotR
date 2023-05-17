@@ -9,13 +9,6 @@ param storageAccountName string
 @secure()
 param storageAccountKey string
 
-@description('Azure CosmosDB URL')
-param cosmosUrl string
-
-@description('Azure CosmosDB account key')
-@secure()
-param cosmosAccountKey string
-
 @description('Service Bus Authorization Rule connection string')
 @secure()
 param serviceBusConnectionString string
@@ -41,15 +34,5 @@ resource storageSecret 'core/Secret@v1' = {
   stringData: {
     accountName: storageAccountName
     accountKey: storageAccountKey
-  }
-}
-
-resource cosmosSecret 'core/Secret@v1' = {
-  metadata: {
-    name: 'cosmos'
-  }
-  stringData: {
-    url: cosmosUrl
-    masterKey: cosmosAccountKey
   }
 }

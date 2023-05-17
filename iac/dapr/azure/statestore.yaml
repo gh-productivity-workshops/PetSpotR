@@ -1,0 +1,20 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: pets
+spec:
+  type: state.azure.blobstorage
+  version: v1
+  metadata:
+  - name: accountName
+    secretKeyRef:
+      name: storage
+      key: accountName
+  - name: containerName
+    value: pets
+  - name: accountKey
+    secretKeyRef:
+      name: storage
+      key: accountKey
+  - name: keyPrefix
+    value: name

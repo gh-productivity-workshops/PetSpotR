@@ -1,14 +1,16 @@
 # PetSpotR
 
-## 🛠️ Here for a workshop? Go to the [workshop](https://github.com/gh-productivity-workshops/PetSpotR/) folder to get started! 🛠️
-
----
-
 PetSpotR allows you to use advanced AI models to report and find lost pets. It is a sample application that uses Azure Machine Learning to train a model to detect pets in images.
 
 It also leverages popular open-source projects such as Dapr and Keda to provide a scalable and resilient architecture.
 
 ![Logo](./img/logo.svg)
+
+## Build 2023 Lab Session
+
+Welcome to the Build 2023 lab session for PetSpotR! This lab will walk you through a set of exercises to run, deploy, and scale PetSpotR.
+
+[**🚀 Lab instructions**](./docs/lab.md)
 
 ## Featured technologies
 
