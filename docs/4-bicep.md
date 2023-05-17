@@ -74,8 +74,8 @@ We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infr
 You're now ready to deploy your application to Azure. You'll use the Azure CLI to deploy your infrastructure:
 
 1. Run `az login --use-device-code` to log in to Azure. You'll need to use a device code because you're running in a Codespace.
-   - ++@lab.CloudPortalCredential(User1).Username++
-   - ++@lab.CloudPortalCredential(User1).Password++
+   - +++@lab.CloudPortalCredential(User1).Username+++
+   - +++@lab.CloudPortalCredential(User1).Password+++
 
     _You can also click on the Resources tab to view these credentials._
 
