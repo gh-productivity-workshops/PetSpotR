@@ -6,7 +6,7 @@ GitHub Copilot can suggest code and entire functions to help you code faster, fo
 
 Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
 
-⚠️ _NOTE: GitHub Copilot is non-deterministic! It syntheses code just for you, so you will likely see different suggestions than the person next to you! We'll talk about how to get the best out of Copilot a little later._
+>[!alert] ⚠️ GitHub Copilot is non-deterministic! It syntheses code just for you, so you will likely see different suggestions than the person next to you! We'll talk about how to get the best out of Copilot a little later.
 
 ### 3.1 Add Dapr to the frontend
 

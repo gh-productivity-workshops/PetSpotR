@@ -25,17 +25,19 @@ Now that you are familiar with the Codespace, you can run PetSpotR locally.
 
 You'll now see the PetSpotR application launch in a new browser tab. You can use this application to explore the functionality of PetSpotR.
 
+> If a browser window didn't open, open the PORTS tab next to TERMINAL and open the Local Address for port 5114.
+
 ### 1.5 Explore PetSpotR
 
 You can now explore the PetSpotR application which is running in your Codespace.
 
 >[!knowledge] Codespaces automatically forwards local ports and makes them available in the browser. The URL which was automatically opened uses `...app.github.dev` to connect you to your Codespace. You can also use the `PORTS` tab in the Codespace to find the port that was forwarded to the application.
 
-1. Visit the `Lost` and `Found` pages to see the application's interface. Dapr has not been added to the application yet, so you'll see errors in the browser console if you try to fill out the form.
+1. Visit the `Lost` and `Found` pages to see the application's interface. Dapr has not been added to the application yet, so you'll see errors in the browser console if you try to fill out the form. Images are available in the Lab VM on the Desktop if you want to try out the image upload functionality.
 2. Return to your Codespace and take a look at your frontend logs. You'll see print statements for the `Lost` and `Found` pages, where calls to Dapr need to be added.
 3. Stop the debuggers by clicking the `Stop Debugging` button (⏹️) in the top debug bar. You'll need to stop both the frontend and backend debuggers.
 
 Done! You now have a Codespace with PetSpotR running locally. You can now use GitHub Copilot to add Dapr to the application.
 
-_The instructor will now demonstrate how to use GitHub Copilot to add Dapr to the application. You can wait to follow along, or you can continue with the exercises below._
+_The instructor will now demonstrate how to use GitHub Copilot to add Dapr to the application. You can wait to follow along, or you can continue with the exercises on the next page._
 
