@@ -35,18 +35,14 @@ Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
         await daprClient.SaveStateAsync("pets", ID, this);
     }
     ```
-4. You'll now see a red squiggly line under the `SavePetStateAsync` method. This is because the Dapr.Client NuGet package needs to be added to the project. Click on the `DaprClientBuilder` method, click on the lightbulb, and select the `using Dapr.Client;` suggestion.
-   ![QuickFix](./images/14-QuickFix.png)
-5. You'll notice that we're not using a try/catch block for this remote Dapr call. To add one, simply add a new line and type `try` and hit `Tab` to accept the suggestion. You'll now see a new try/catch block added to the method:
+4. You'll notice that we're not using a try/catch block for this remote Dapr call. To add one, delete the previous line you just added, type `try` and hit `Tab` to accept the suggestion. You'll now see a new try/catch block added to the method:
 
-    ![TryCatch](./images/15-Try.png)
+    ![TryCatch](./images/15-try.png)
 
-    _You may need to manually delete the old `await daprClient.SaveStateAsync("pets", ID, this);` line._
-
-6. Repeat the above process to add a new method to publish the lost pet to the "lostPet" topic. Try the following comment:
+5. Repeat the above process to add a new method to publish the lost pet to the "lostPet" topic. Try the following comment:
 
     ```csharp
-    // Publish a message to the lostPet Dapr pub/sub topic on the pubsub broker
+    // Publish a message to the "lostPet" Dapr pub/sub topic on the "pubsub" broker
     ```
 
     You should end up with the following method:
@@ -83,11 +79,9 @@ Now that you've made changes within your Codespace, let's debug the application 
 3. Click the `Start Debugging` button (▶️) to launch PetSpotR locally
 4. Visit the `Lost` and `Found` pages to see the application's interface. You'll see that the form now works, and you can add lost and found pets to the application.
 5. In your Codespace open the Redis extension (![](./images/redis.png)), and add the default Redis connection, accepting the default values:
-   ![Redis connection](./images/16-Redis.png)
+   ![Redis connection](./images/16-redis.png)
 6. In `db0` you should now see your saved state, and in `lostPet` you should see your lost pet messages:
    ![Redis data](./images/17-RedisData.png)
-
-   TODO: Add a screenshot of the Redis data
 
 Done! You've now just added Dapr into your application using Copilot.
 

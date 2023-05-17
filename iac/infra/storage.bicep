@@ -32,7 +32,4 @@ resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
 
 }
 
-output storageAccountId string = storage.id
 output storageAccountName string = storage.name
-output imagesContainerId string = storage::blobServices::images.id
-output containerName string = storage::blobServices::state.name
