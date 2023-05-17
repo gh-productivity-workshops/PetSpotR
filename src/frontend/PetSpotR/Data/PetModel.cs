@@ -1,3 +1,4 @@
+using Dapr.Client;
 
 namespace PetSpotR.Models 
 {
@@ -23,8 +24,20 @@ namespace PetSpotR.Models
             Images = new();
         }
 
-        // Methods - This is where you can add your Dapr save state and publish event methods
+        // THis is where you'll add the methods to save the pet state and publish the lost pet
 
+        public async Task SavePetStateAsync(DaprClient daprClient)
+        {
+            Console.WriteLine("Not implemented");
+            
+            return;
+        }
 
+        public async Task PublishLostPetAsync(DaprClient daprClient)
+        {
+            Console.WriteLine("Not implemented");
+
+            return;
+        }
     }
 }

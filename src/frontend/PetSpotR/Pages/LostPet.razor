@@ -110,8 +110,8 @@
 
         }
 
-        await petModel.SavePetStateAsync(daprClient, "pets");
-        await petModel.PublishLostPetAsync(daprClient, "pubsub");
+        await petModel.SavePetStateAsync(daprClient);
+        await petModel.PublishLostPetAsync(daprClient);
 
         NavigationManager.NavigateTo("/submit");
     }
