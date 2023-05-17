@@ -17,4 +17,4 @@ Begin by logging in with your VM password:
 
 +++@lab.VirtualMachine(BuildBaseVM).Password+++
 
-Click the `Next` button to begin the lab (bottom right corner of the page)
+Click the 'Next' button to begin the lab (bottom right corner of the page)

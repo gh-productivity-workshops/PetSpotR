@@ -1,4 +1,4 @@
-## Run PetSpotR in a GitHub Codespace
+## RExplore GitHub Codespaces
 
 Cloud computing has exploded in the past few decades. But the cloud can be used for more than just running production workloads - it can host your development environments as well!
 
@@ -14,25 +14,27 @@ Your first task is to launch a GitHub Codespace, customize it, and then launch P
 
 You'll begin by launching a new GitHub Codespace. This will give you a pre-configured environment with all the tools you need to run PetSpotR.
 
-1. Navigate to the [PetSpotR GitHub repository](https://github.com/Azure-Samples/PetSpotR/tree/build-2023-lab), and make sure you are on the `build-2023-lab` branch
+1. Open Edge in the lab VM and navigate to the PetSpotR GitHub repository (first bookmark) and make sure you are on the 'buildlab-2023' branch:
+    ```
+    https://github.com/gh-productivity-workshops/PetSpotR/tree/buildlab-2023
+    ```
 2. Sign into GitHub with your GitHub account
+    - Make sure you have provided your GitHub username to the lab assistant so you have access to Codespaces. If you haven't, please do so now.
 3. Click the `<> Code` button and select the `Codespaces` tab
    ![New Codespace with Options](./images/1-new-codespace.png)
-4. Click the `+` button to launch a new Codespace on the `build-2023-lab` branch
-   - If you're unable to launch a Codespace please talk to a lab assistant. We'll need to add you to the org so we can bill the Codespace to the lab.
+4. Click the `+` button to launch a new Codespace on the `buildlab-2023` branch
 
 You should now drop directly into a Codespace with the PetSpotR repository cloned and ready to go.
 
 ### 1.2 Explore the Codespace
 
-1. In the Codespace terminal, run `ls -1 -a` to list the files in the repository:
+1. In the Codespace terminal, run `ls -a` to list the files and directories in the repository:
     
     ```bash
-    $ ls -1 -a
+    $ ls -a
     ```
-    > Note: The `-1` flag will list the files one per line, and the `-a` flag will list all files, including hidden files.
 
-    You should see the following files:
+    You should see the following files and directories:
 
     ```
     .
@@ -75,18 +77,21 @@ You should now drop directly into a Codespace with the PetSpotR repository clone
     ```
 
     These are the default Dapr containers for Zipkin, Dapr placement service, running in the Codespace. They will be used when you run PetSpotR locally later on.
+
+    >[!knowledge] Wait, I thought a Codespaces was already a container, how can it run Docker containers within the container? Docker support in Codespaces is enabled through the docker-in-docker feature. There are additional options for docker-outside-of-docker. Visit containers.dev/features to learn more.
+
 3. Let's take a look at how to customize your Codespace. Open `.devcontainer/devcontainer.json` to see the Codespace definition:
 
-   ```bash
-   code .devcontainer/devcontainer.json
-   ```
+    ```bash
+    code .devcontainer/devcontainer.json
+    ```
 
-   You'll notice some important properties:
-   
-   - `image` - The Docker image used to create the Codespace
-   - `onCreateCommand` - The command to run when the Codespace is created, which can be used to install dependencies or other setup tasks
-   - `features` - A list of [features](https://github.com/devcontainers/features) to install in the Codespace, such as Python support, the Azure CLI, or Docker-in-Docker support
-   - `customizations.vscode.extensions` - A list of Visual Studio Code extensions to install in the Codespace
+    You'll notice some important properties:
+    
+    - `image` - The Docker image used to create the Codespace
+    - `onCreateCommand` - The command to run when the Codespace is created, which can be used to install dependencies or other setup tasks
+    - `features` - A list of [features](https://github.com/devcontainers/features) to install in the Codespace, such as Python support, the Azure CLI, and Docker-in-Docker support
+    - `customizations.vscode.extensions` - A list of Visual Studio Code extensions to install in the Codespace
 
 ### 1.3 Customize your Codespace
 
@@ -102,51 +107,15 @@ Let's add the GitHub Copilot extension, but let's add it to the devcontainer rat
 4. Go back to the `devcontainer.json` file and see the change. Note that the extension hasn't been installed in your Codespace at this point.
 ![Extension added to the devcontainer](images/10-copilot-devcontainer-change.png)
 
-To see the change, we'll need to rebuild our Codespace.
+    To see the change, we'll need to rebuild our Codespace. When running in your own repository you could commit this change so all new Codespaces would have the extension installed, but we'll just rebuild for now.
 
-6. Using your keyboard, press `Ctrl/Cmd-Shift-P`, then type "rebuild" to find the "Codespaces: Rebuild Container" option. Select it and press Enter, or click it with the mouse.
+5. Using your keyboard, press `Ctrl-Shift-P` to open the command palette, then type "rebuild" to find the "Codespaces: Rebuild Container" option. Select it and press Enter, or click it with the mouse.
 ![Rebuilding your Codespace](images/11-rebuild-codespace.png)
-7. Confirm your choice by clicking "Rebuild" and wait for your Codespace to reload.
+6. Confirm your choice by clicking "Rebuild" and wait for your Codespace to reload.
 ![Confirm the rebuild](images/12-rebuild-codespace-confirm.png)
  _This may take a little longer than your first build! This is because we're taking advantage of a feature called Prebuilds. Your instructor will show you how to set these up and explain why they're useful._
-8. Once reloaded, you'll be able to see GitHub Copilot installed - both in the Extensions pane, as well as via the GitHub Copilot logo at the bottom right of the status bar!
+7. Once reloaded, you'll be able to see GitHub Copilot installed - both in the Extensions pane, as well as via the GitHub Copilot logo at the bottom right of the status bar!
 
    ![Copilot Logo](images/13-copilot-icon.png)
 
-### 1.4 Run PetSpotR locally
-
-Now that you are familiar with the Codespace, you can run PetSpotR locally.
-
-1. Open `.vscode/launch.json` to see the launch configurations for the Codespace. You'll use these to run PetSpotR locally:
-
-    ```bash
-    code .vscode/launch.json
-    ```
-
-    You should see launch configurations for:
-
-    - `frontend with Dapr` - Launches the frontend service with Dapr
-    - `backend with Dapr` - Launches the backend service with Dapr
-
-    You'll also see a compound launch configuration called `✅ Debug with Dapr` that will launch both the frontend and backend services with Dapr.
-
-1. Select the `Run and Debug` (![](images/debug.png)) tab in the left-hand pane of the Codespace.
-2. Make sure the launch configuration is set to `✅ Debug with Dapr`
-3. Click the `Start Debugging` button (▶️) to launch PetSpotR locally
-
-You'll now see the PetSpotR application launch in a new browser tab. You can use this application to explore the functionality of PetSpotR.
-
-### 1.5 Explore PetSpotR
-
-You can now explore the PetSpotR application which is running in your Codespace.
-
-> **Note**: Codespaces automatically forwards local ports and makes them available in the browser. The URL which was automatically opened uses `...app.github.dev` to connect you to your Codespace. You can also use the `PORTS` tab in the Codespace to find the port that was forwarded to the application.
-
-1. Visit the `Lost` and `Found` pages to see the application's interface. Dapr has not been added to the application yet, so you'll see errors in the browser console if you try to fill out the form.
-2. Return to your Codespace and take a look at your frontend logs. You'll see print statements for the `Lost` and `Found` pages, where calls to Dapr need to be added.
-3. Stop the debuggers by clicking the `Stop Debugging` button (⏹️) in the top debug bar. You'll need to stop both the frontend and backend debuggers.
-
-Done! You now have a Codespace with PetSpotR running locally. You can now use GitHub Copilot to add Dapr to the application.
-
-_The instructor will now demonstrate how to use GitHub Copilot to add Dapr to the application. You can wait to follow along, or you can continue with the exercises below._
-
+Check out the next section (bottom right corner of the page) to learn how to debug and run PetSpotR locally.
