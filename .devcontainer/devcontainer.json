@@ -33,16 +33,16 @@
   "remoteEnv": {
     "PATH": "${containerEnv:PATH}:/home/vscode/.dapr/bin",
     "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
-  }
+  },
   // Use 'portsAttributes' to set default properties for specific forwarded ports.
   // More info: https://containers.dev/implementors/json_reference/#port-attributes
-  /* 	"portsAttributes": {
-          "5114": {
-              "label": "frontend",
-              "onAutoForward": "notify",
-              "protocol": "https"
-          }
-      } */
+  "portsAttributes": {
+    "5114": {
+      "label": "frontend",
+      "onAutoForward": "openBrowser",
+      "protocol": "https"
+    }
+  }
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [5000, 5001],
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
