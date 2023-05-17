@@ -1,4 +1,3 @@
-using Dapr.Client;
 
 namespace PetSpotR.Models 
 {
@@ -24,37 +23,8 @@ namespace PetSpotR.Models
             Images = new();
         }
 
-        public async Task SavePetStateAsync(DaprClient daprClient, string storeName)
-        {
-            try {
-                await daprClient.SaveStateAsync(
-                    storeName: storeName,
-                    key: ID,
-                    value: this
-                );
-            } catch {
-                throw;
-            }
+        // Methods - This is where you can add your Dapr save state and publish event methods
 
-            return;
-        }
 
-        public async Task PublishLostPetAsync(DaprClient daprClient, string pubsubName)
-        {
-            try {
-                await daprClient.PublishEventAsync(
-                    pubsubName: pubsubName,
-                    topicName: "lostPet",
-                    data: new Dictionary<string, string>
-                    {
-                        { "petId", ID }
-                    }
-                );
-            } catch {
-                throw;
-            }
-
-            return;
-        }
     }
 }
