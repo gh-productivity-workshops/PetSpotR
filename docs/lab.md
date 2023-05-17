@@ -5,19 +5,21 @@ This guide will walk you through a set of exercises to run, deploy, and scale Pe
 As part of this lab, you will:
 
 1. Launch a GitHub Codespace with the PetSpotR repository
-1. Customize your Codespace and rebuild it instantly
+1. Customize your Codespace with a new extension
 1. Run PetSpotR locally
 1. Use GitHub Copilot to improve the application by adding in Dapr
-1. Create a Bicep template and deploy the application to Azure
-1. Use KEDA to scale the application to handle increased load
+1. Create a Bicep infrastructure template and deploy the application to Azure
+1. Run the application in Azure Kubernetes Service (AKS)
 
 ## Getting started
 
-Welcome to the lab!
-
 Begin by logging in with your VM password:
 
-@lab.VirtualMachine(BuildBaseVM).Password
++++@lab.VirtualMachine(BuildBaseVM).Password+++
+
+Click the `Next` button to begin the lab (bottom right corner of the page)
+
+===
 
 ## Exercise 1: Run PetSpotR in a GitHub Codespace
 
@@ -27,7 +29,7 @@ Cloud computing has exploded in the past few decades. But the cloud can be used 
 
 The advantages of using Codespaces over local development are many. You can standardize on a set of dependencies for a project, onboard a new developer in seconds rather than days, and spin up and tear down context-aware Codespaces at a moment's notice.
 
-🤯 _Fun Fact: GitHub itself uses Codespaces to develop GitHub! New engineers can go from zero to ready to code in about 10 seconds. And that's on an 11GB codebase!_
+>[!knowledge] 🤯 Fun Fact: GitHub itself uses Codespaces to develop GitHub! New engineers can go from zero to ready to code in about 10 seconds. And that's on an 11GB codebase!
 
 Your first task is to launch a GitHub Codespace, customize it, and then launch PetSpotR within it.
 
@@ -171,7 +173,9 @@ Done! You now have a Codespace with PetSpotR running locally. You can now use Gi
 
 _The instructor will now demonstrate how to use GitHub Copilot to add Dapr to the application. You can wait to follow along, or you can continue with the exercises below._
 
-## Exercise 2: Use GitHub Copilot to add Dapr to the frontend
+===
+
+# Exercise 2: Use GitHub Copilot to add Dapr to the frontend
 
 2023 saw an explosion of artificially intelligent (AI) tools into the mainstream, promising increased productivity and removing busywork. [GitHub Copilot](https://github.com/features/copilot) is your AI pair programmer and was one of the first commercially-available tools based on Large Language Models (LLMs). First released as a technical preview in June 2021, it was made generally available to individuals one year later in June 2022.
 
@@ -260,6 +264,8 @@ Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
 Done! You've now just added Dapr into your application using Copilot.
 
 _The instructor will now demonstrate how to use Bicep to model your infrastructure. You can wait to follow along, or you can continue with the exercises below._
+
+===
 
 ## Exercise 3: Use Bicep to model your infrastructure as code
 
