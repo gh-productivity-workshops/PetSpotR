@@ -11,6 +11,14 @@ As part of this lab, you will:
 1. Create a Bicep template and deploy the application to Azure
 1. Use KEDA to scale the application to handle increased load
 
+## Getting started
+
+Welcome to the lab!
+
+Begin by logging in with your VM password:
+
+@lab.VirtualMachine(BuildBaseVM).Password
+
 ## Exercise 1: Run PetSpotR in a GitHub Codespace
 
 Cloud computing has exploded in the past few decades. But the cloud can be used for more than just running production workloads - it can host your development environments as well!
@@ -91,15 +99,15 @@ You should now drop directly into a Codespace with the PetSpotR repository clone
 3. Let's take a look at how to customize your Codespace. Open `.devcontainer/devcontainer.json` to see the Codespace definition:
 
    ```bash
-    code .devcontainer/devcontainer.json
-    ```
+   code .devcontainer/devcontainer.json
+   ```
 
-    You'll notice some important properties:
-
-    - `image` - The Docker image used to create the Codespace
-    - `onCreateCommand` - The command to run when the Codespace is created, which can be used to install dependencies or other setup tasks
-    - `features` - A list of [features](https://github.com/devcontainers/features) to install in the Codespace, such as Python support, the Azure CLI, or Docker-in-Docker support
-    - `customizations.vscode.extensions` - A list of Visual Studio Code extensions to install in the Codespace
+   You'll notice some important properties:
+   
+   - `image` - The Docker image used to create the Codespace
+   - `onCreateCommand` - The command to run when the Codespace is created, which can be used to install dependencies or other setup tasks
+   - `features` - A list of [features](https://github.com/devcontainers/features) to install in the Codespace, such as Python support, the Azure CLI, or Docker-in-Docker support
+   - `customizations.vscode.extensions` - A list of Visual Studio Code extensions to install in the Codespace
 
 ### 1.3 Customize your Codespace
 
@@ -143,7 +151,7 @@ Now that you are familiar with the Codespace, you can run PetSpotR locally.
 
     You'll also see a compound launch configuration called `✅ Debug with Dapr` that will launch both the frontend and backend services with Dapr.
 
-1. Select the `Run and Debug` (![](images/extensions.png)) tab in the left-hand pane of the Codespace.
+1. Select the `Run and Debug` (![](images/debug.png)) tab in the left-hand pane of the Codespace.
 2. Make sure the launch configuration is set to `✅ Debug with Dapr`
 3. Click the `Start Debugging` button (▶️) to launch PetSpotR locally
 
@@ -210,11 +218,11 @@ Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
 
 6. Repeat the above process to add a new method to publish the lost pet to the "lostPet" topic. Try the following comment:
 
-   ```csharp
-   // Publish a message to the lostPet Dapr pub/sub topic on the pubsub broker
-   ```
+    ```csharp
+    // Publish a message to the lostPet Dapr pub/sub topic on the pubsub broker
+    ```
 
-   You should end up with the following method:
+    You should end up with the following method:
 
     ```csharp
     // Publish a message to the lostPet Dapr pub/sub topic on the pubsub broker
@@ -235,7 +243,7 @@ Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
             {
                 throw;
             }
-
+ 
         }
     ```
 7. Select the `Run and Debug` (![](images/extensions.png)) tab in the left-hand pane of the Codespace.
@@ -328,7 +336,7 @@ We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infr
 
 You're now ready to deploy your application to Azure. You'll use the Azure CLI to deploy your infrastructure:
 
-1. Run `az login` to log in to Azure. You'll be prompted to open a browser window to authenticate. Use these credentials:
+1. Run `az login --use-device-code` to log in to Azure. You'll need to use a device code because you're running in a Codespace.
    - @lab.CloudPortalCredential(User1).Username
    - @lab.CloudPortalCredential(User1).Password
 
@@ -336,42 +344,29 @@ You're now ready to deploy your application to Azure. You'll use the Azure CLI t
 
 2. Deploy your iBicep file using `az deployment create`
 
-   ```bash
-   az deployment create --location westus2 --template-file ./iac/infra.bicep
-   ```
+    ```bash
+    az deployment create --location westus2 --template-file ./iac/infra.bicep
+    ```
 3. You can visit https://portal.azure.com to see the resources being deployed under your new `build-lab` resource group.
     ![Azure resources](./images/17-azureportal.png)
 
 ### 3.3 Configure your cluster
 
-Now that you've deployed your infrastructure, you're ready to configure your cluster. You'll use the Helm CLI to install the Dapr and KEDA Helm charts:
+Now that you've deployed your infrastructure, you're ready to configure your cluster. You'll use the Dapr CLI to install Dapr.
 
 1. Run `az aks get-credentials` to get the credentials for your AKS cluster:
 
-   ```bash
-   az aks get-credentials --resource-group build-lab --name petspotr
-   ```
-
-2. Run `helm repo add` to add the Dapr and KEDA Helm repositories:
-
-   ```bash
-   helm repo add dapr https://daprio.azurecr.io/helm/v1/repo
-   helm repo add kedacore https://kedacore.github.io/charts
-   ```
-
-3. Run `helm repo update` to update the Helm repositories:
-
-   ```bash
-    helm repo update
+    ```bash
+    az aks get-credentials --resource-group build-lab --name petspotr
     ```
-4. Run `helm install` to install the Dapr and KEDA Helm charts:
 
-   ```bash
-   helm install dapr dapr/dapr --namespace dapr-system
-   helm install keda kedacore/keda --namespace keda
-   ```
+2. Run `dapr init -k` to install Dapr into your Kubernetes cluster:
 
-Done! You now have Dapr and KEDA installed on your AKS cluster.
+    ```bash
+    dapr init -k
+    ```
+
+Done! You now have Dapr installed on your AKS cluster.
 
 ### 3.4 Deploy Dapr cloud components
 
@@ -379,17 +374,17 @@ Now that you've installed Dapr on your cluster, you're ready to deploy the Dapr 
 
 1. Open `iac/dapr/azure/statestore.yaml` to open the YAML template for your Dapr state store component:
 
-    ```bash
-    code ./iac/dapr/azure/statestore.yaml
-    ```
+     ```bash
+     code ./iac/dapr/azure/statestore.yaml
+     ```
 
-    You can also view images.yaml and pubsub.yaml.
+     You can also view images.yaml and pubsub.yaml.
 
 2. Deploy these components using `kubectl apply`:
 
-   ```bash
-   kubectl apply -f ./iac/dapr/azure
-   ```
+    ```bash
+    kubectl apply -f ./iac/dapr/azure
+    ```
 
 3. Done! You've now added Dapr components to your cluster.
 
@@ -413,17 +408,20 @@ You're now ready to deploy your application to Azure. You'll use the Azure CLI t
 
 3. Deploy your application using `az deployment create`
 
-   ```bash
-   az deployment create --location westus2 --template-file ./iac/app.bicep
-   ```
+    ```bash
+    az deployment group create --resource-group "build-lab" --template-file ./iac/app.bicep
+    ```
 
 ### 3.6 Access the PetSpotR application
 
 Now that you've deployed your infrastructure and application you're ready to access the PetSpotR application!
 
-1. In the [Azure portal](https://portal.azure.com) navigate to your `build-lab` resource group and open the 'petspotr' AKS cluster.
-1. Select `Services and ingresses` and click on the external IP address of your cluster. You should see the PetSpotR application:
-   ![PetSpotR application](./images/18-petspotr.png)
+1. Get the hostname of your HTTP ingress:
+
+    ```bash
+    kubectl get ingress
+    ```
+
 1. Try out the application by reporting a lost pet
 1. Open the storage account in the Azure portal and navigate to the `images` container. You should see the image you uploaded:
    ![Storage account](./images/19-storage.png)
