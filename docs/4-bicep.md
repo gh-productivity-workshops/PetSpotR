@@ -84,7 +84,7 @@ You're now ready to deploy your application to Azure. You'll use the Azure CLI t
     ```bash
     az deployment create --location westus2 --template-file ./iac/infra.bicep
     ```
-3. You can visit https://portal.azure.com to see the resources being deployed under your new `build-lab` resource group.
+3. You can visit +++https://portal.azure.com+++ to see the resources being deployed under your new `build-lab` resource group.
     ![Azure resources](./images/17-azureportal.png)
 
 ### 3.3 Configure your cluster
