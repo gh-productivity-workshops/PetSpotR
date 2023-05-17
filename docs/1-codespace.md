@@ -1,4 +1,4 @@
-## Exercise 1: Run PetSpotR in a GitHub Codespace
+## Run PetSpotR in a GitHub Codespace
 
 Cloud computing has exploded in the past few decades. But the cloud can be used for more than just running production workloads - it can host your development environments as well!
 

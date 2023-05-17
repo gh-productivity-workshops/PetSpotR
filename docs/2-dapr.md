@@ -1,4 +1,4 @@
-# Exercise 2: Use GitHub Copilot to add Dapr to the frontend
+## Use GitHub Copilot to add Dapr to the frontend
 
 2023 saw an explosion of artificially intelligent (AI) tools into the mainstream, promising increased productivity and removing busywork. [GitHub Copilot](https://github.com/features/copilot) is your AI pair programmer and was one of the first commercially-available tools based on Large Language Models (LLMs). First released as a technical preview in June 2021, it was made generally available to individuals one year later in June 2022.
 

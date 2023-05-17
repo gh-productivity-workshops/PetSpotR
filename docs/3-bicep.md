@@ -1,4 +1,4 @@
-## Exercise 3: Use Bicep to model your infrastructure as code
+## Use Bicep to model your infrastructure as code
 
 We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infrastructure as code. Bicep is a domain-specific language (DSL) for describing and deploying Azure resources declaratively. You'll use Bicep to deploy PetSpotR to Azure.
 
