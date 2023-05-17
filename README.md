@@ -1,6 +1,8 @@
 # PetSpotR
 
-## 🛠️ Here for a workshop? Go to the [workshop](https://github.com/gh-productivity-workshops/PetSpotR/) folder to get started! 🛠️
+## 如果你需要中文请访问 [中文版本](./README_CN.md)
+
+## 🛠️ Here for a workshop? Go to the [workshop](workshop/README.md) folder to get started! 🛠️
 
 ---
 
