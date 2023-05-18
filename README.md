@@ -10,7 +10,7 @@ It also leverages popular open-source projects such as Dapr and Keda to provide 
 
 Welcome to the Build 2023 lab session for PetSpotR! This lab will walk you through a set of exercises to run, deploy, and scale PetSpotR.
 
-[**🚀 Lab instructions**](./docs/lab.md)
+[**🚀 Lab instructions**](./docs/0-getting-started.md)
 
 ## Featured technologies
 

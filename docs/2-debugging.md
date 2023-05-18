@@ -2,11 +2,11 @@
 
 In this exercise you'll learn how to run PetSpotR in your GitHub Codespace and debug the application.
 
-### 1.4 Run PetSpotR locally
+### 1.4 Run PetSpotR in the Codespace
 
-Now that you are familiar with the Codespace, you can run PetSpotR locally.
+Now that you are familiar with the Codespace, you can run PetSpotR inside of it.
 
-1. Open `.vscode/launch.json` to see the launch configurations for the Codespace. You'll use these to run PetSpotR locally:
+1. Open `.vscode/launch.json` to see the launch configurations for the Codespace. You'll use these to run PetSpotR:
 
     ```bash
     code .vscode/launch.json
@@ -21,7 +21,7 @@ Now that you are familiar with the Codespace, you can run PetSpotR locally.
 
 1. Select the `Run and Debug` (![](images/debug.png)) tab in the left-hand pane of the Codespace.
 2. Make sure the launch configuration is set to `✅ Debug with Dapr`
-3. Click the `Start Debugging` button (▶️) to launch PetSpotR locally
+3. Click the `Start Debugging` button (▶️) to launch PetSpotR in the Codespace
 
 You'll now see the PetSpotR application launch in a new browser tab. You can use this application to explore the functionality of PetSpotR.
 
@@ -37,7 +37,7 @@ You can now explore the PetSpotR application which is running in your Codespace.
 2. Return to your Codespace and take a look at your frontend logs. You'll see print statements for the `Lost` and `Found` pages, where calls to Dapr need to be added.
 3. Stop the debuggers by clicking the `Stop Debugging` button (⏹️) in the top debug bar. You'll need to stop both the frontend and backend debuggers.
 
-Done! You now have a Codespace with PetSpotR running locally. You can now use GitHub Copilot to add Dapr to the application.
+Done! You now have a Codespace with PetSpotR running in your Codespace. You can now use GitHub Copilot to add Dapr to the application.
 
 _The instructor will now demonstrate how to use GitHub Copilot to add Dapr to the application. You can wait to follow along, or you can continue with the exercises on the next page._
 

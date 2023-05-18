@@ -10,9 +10,9 @@ We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infr
     code ./iac/infra.bicep
     ```
 
-    Notice that the storage module has an error, because the file `storage.bicep` does not yet exist. Let's fix that!
+    Notice that the storage module has an error, because the file `storage.bicep` is empty. Let's fix that!
 
-2. Create a new file, `storage.bicep`, which will contain the definition of your storage account:
+2. Open the empty file `storage.bicep`, which will contain the definition of your storage account:
 
     ```bash
     code ./iac/infra/storage.bicep
@@ -25,6 +25,8 @@ We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infr
 
     // Parameter for the name of the storage account
     ```
+
+    You may need to provide some extra hints, such as typing `param` to get Copilot to render the correct format.
 
     Copilot should generate the following parameters:
 
@@ -56,7 +58,7 @@ We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infr
     }
     ```
 
-5. To make the storage account available to other resources, you'll need to pass back the storage account's ID. Use another comment to have Copilot generate the output:
+5. To make the storage account available to other resources, you'll need to pass back the storage account's name. Use another comment to have Copilot generate the output:
 
     ```bicep
     // Output for the storage account name

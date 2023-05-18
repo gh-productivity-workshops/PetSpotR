@@ -22,7 +22,7 @@ You'll begin by launching a new GitHub Codespace. This will give you a pre-confi
     - Make sure you have provided your GitHub username to the lab assistant so you have access to Codespaces. If you haven't, please do so now.
 3. Click the `<> Code` button and select the `Codespaces` tab
    ![New Codespace with Options](./images/1-new-codespace.png)
-4. Click the `+` button to launch a new Codespace on the `buildlab-2023` branch
+4. Click the `Create codespace on buildlab-2023` button to launch a new Codespace on the `buildlab-2023` branch
 
 You should now drop directly into a Codespace with the PetSpotR repository cloned and ready to go.
 
@@ -76,7 +76,7 @@ You should now drop directly into a Codespace with the PetSpotR repository clone
     ff778032cc52   redis:6              "docker-entrypoint.s…"  ...
     ```
 
-    These are the default Dapr containers for Zipkin, Dapr placement service, running in the Codespace. They will be used when you run PetSpotR locally later on.
+    These are the default Dapr containers for Zipkin, Dapr placement service, running in the Codespace. They were created by the `dapr init` command that was run when the Codespace was created. They will be used when you run PetSpotR in the Codespace later on.
 
     >[!knowledge] Wait, I thought a Codespaces was already a container, how can it run Docker containers within the container? Docker support in Codespaces is enabled through the docker-in-docker feature. There are additional options for docker-outside-of-docker. Visit containers.dev/features to learn more.
 
