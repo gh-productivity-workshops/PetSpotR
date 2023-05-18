@@ -40,7 +40,7 @@
     "5114": {
       "label": "frontend",
       "onAutoForward": "openBrowser",
-      "protocol": "https"
+      "protocol": "http"
     }
   }
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
