@@ -36,7 +36,7 @@ def subscribe():
 def lostPet():
     # Get Dapr pub/sub message
     event = from_http(request.headers, request.get_data())
-    id = event.data['petId']
+    id = event.data['id']
 
     # Get pet details from Dapr state store
     try: 
