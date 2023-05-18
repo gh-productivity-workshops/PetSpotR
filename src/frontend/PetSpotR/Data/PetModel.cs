@@ -24,20 +24,16 @@ namespace PetSpotR.Models
             Images = new();
         }
 
-        // THis is where you'll add the methods to save the pet state and publish the lost pet
-
         public async Task SavePetStateAsync(DaprClient daprClient)
         {
+            // Delete this line and replace it with a comment describing what you want to do
             Console.WriteLine("Not implemented");
-            
-            return;
         }
 
         public async Task PublishLostPetAsync(DaprClient daprClient)
         {
+            // Delete this line and replace it with a comment describing what you want to do
             Console.WriteLine("Not implemented");
-
-            return;
         }
     }
 }
