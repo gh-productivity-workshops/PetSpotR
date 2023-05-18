@@ -21,6 +21,7 @@ module storage 'infra/storage.bicep' = {
   scope: resourceGroup
   params: {
     location: location
+    storageAccountName: 'petspotr${uniqueString(resourceGroup.id)}'
   }
 }
 

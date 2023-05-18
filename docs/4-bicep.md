@@ -65,7 +65,7 @@ We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infr
     Copilot should generate something similar to the following output:
 
     ```bicep
-    // Output for the storage account ID
+    // Output for the storage account name
     output storageAccountName string = storageAccount.name
     ```
 
