@@ -44,25 +44,25 @@ GitHub Copilot 可以提供代码建议并且有能力自动生成方法级的�
 
 😨 _如果您不了解这些技术，请不要担心。 这就是 Codespaces 和 GitHub Copilot 可以提供帮助的地方！_
 
-## 1. 启动一个新的 Codespaces 
+## 1. 启动一个新的 Codespace 
 
 让我们首先创建一个新的 Codespace ，其中会预装好所有依赖和工具。
 
-1. 通过浏览器进入 https://github.com/gh-productivity-workshops/PetSpotR。
+1.通过浏览器进入 https://github.com/gh-productivity-workshops/PetSpotR。
 
-2. 单击“<> Code”按钮，然后单击“Codespaces”选项卡。
+2.单击“<> Code”按钮，然后单击“Codespaces”选项卡。
 
-3. 确保您可以看到底部的注释 - "此存储库的codespace由 *gh-productivity-workshops* 付费"。如果您看不到这个提示信息，请告知 Workshop 的导师或者现场工作人员！
 ![new codespace](images/1-new-codespace.png)
 
-4. 单击此窗口顶部的省略号 (...)，然后选择 “+ New with options...”
+3.单击此窗口顶部的省略号 (...)，然后选择 “+ New with options...”
 
 ![new codespace options](images/2-new-codespace-options.png)
 
-1. 单击 *Machine type* 的下拉菜单并查看选项。 您会注意到只有一个可用。 这已由组织管理员设置为策略！
+4.单击 *Machine type* 的下拉菜单并查看选项。 您会注意到只有一个可用。 这已由组织管理员设置为策略！
+
 ![machine type](images/3-new-codespace-machines.png)
 
-1. 点击“Create codespace”按钮，观察您的 Codespace 构建过程
+5.点击“Create codespace”按钮，观察您的 Codespace 构建过程
 
 _您等待 Codespace 启动时，讲师会为您说明Codespace的配置策略。_
 
