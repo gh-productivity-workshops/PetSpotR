@@ -2,7 +2,7 @@
 
 In this exercise you'll learn how to run PetSpotR in your GitHub Codespace and debug the application.
 
-### 1.4 Run PetSpotR in the Codespace
+### 2.1 Run PetSpotR in the Codespace
 
 Now that you are familiar with the Codespace, you can run PetSpotR inside of it.
 
@@ -27,7 +27,7 @@ You'll now see the PetSpotR application launch in a new browser tab. You can use
 
 > If a browser window didn't open, open the PORTS tab next to TERMINAL and open the Local Address for port 5114.
 
-### 1.5 Explore PetSpotR
+### 2.2 Explore PetSpotR
 
 You can now explore the PetSpotR application which is running in your Codespace.
 

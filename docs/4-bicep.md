@@ -2,7 +2,7 @@
 
 We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infrastructure as code. Bicep is a domain-specific language (DSL) for describing and deploying Azure resources declaratively. You'll use Bicep to deploy PetSpotR to Azure.
 
-### 3.1 Create a Bicep template for your images storage account
+### 4.1 Create a Bicep template for your images storage account
 
 1. Open `iac/infra.bicep` to open the Bicep template for your infrastructure:
 
@@ -71,7 +71,7 @@ We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infr
     output storageAccountName string = storageAccount.name
     ```
 
-### 3.2 Deploy your infrastructure to Azure
+### 4.2 Deploy your infrastructure to Azure
 
 You're now ready to deploy your application to Azure. You'll use the Azure CLI to deploy your infrastructure:
 
@@ -89,7 +89,7 @@ You're now ready to deploy your application to Azure. You'll use the Azure CLI t
 3. You can visit +++https://portal.azure.com+++ to see the resources being deployed under your new `build-lab` resource group.
     ![Azure resources](./images/17-azureportal.png)
 
-### 3.3 Configure your cluster
+### 4.3 Configure your cluster
 
 Now that you've deployed your infrastructure, you're ready to configure your cluster. You'll use the Dapr CLI to install Dapr.
 
@@ -107,7 +107,7 @@ Now that you've deployed your infrastructure, you're ready to configure your clu
 
 Done! You now have Dapr installed on your AKS cluster.
 
-### 3.4 Deploy Dapr cloud components
+### 4.4 Deploy Dapr cloud components
 
 Now that you've installed Dapr on your cluster, you're ready to deploy the Dapr cloud components. When running PetSpotR locally, you used the Redis state store and pub/sub components. In Azure, you'll use an Azure Storage Account and Azure Service Bus.
 
@@ -127,7 +127,7 @@ Now that you've installed Dapr on your cluster, you're ready to deploy the Dapr 
 
 3. Done! You've now added Dapr components to your cluster.
 
-### 3.5 Deploy your application to Azure
+### 4.5 Deploy your application to Azure
 
 You're now ready to deploy your application to Azure. You'll use the Azure CLI to deploy your application:
 
@@ -151,7 +151,7 @@ You're now ready to deploy your application to Azure. You'll use the Azure CLI t
     az deployment group create --resource-group "build-lab" --template-file ./iac/app.bicep
     ```
 
-### 3.6 Access the PetSpotR application
+### 4.6 Access the PetSpotR application
 
 Now that you've deployed your infrastructure and application you're ready to access the PetSpotR application!
 
