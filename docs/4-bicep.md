@@ -21,7 +21,7 @@ We're now ready to deploy PetSpotR to Azure. You'll use Bicep to model your infr
 3. Using Copilot, let's generate the parameters we need. Let's use comments as a starting point:
 
     ```bicep
-    // Parameter for the location of the storage account
+    // Parameter for the location of the storage account, named "location"
 
     // Parameter for the name of the storage account
     ```
@@ -88,6 +88,8 @@ You're now ready to deploy your application to Azure. You'll use the Azure CLI t
     ```
 3. You can visit +++https://portal.azure.com+++ to see the resources being deployed under your new `build-lab` resource group.
     ![Azure resources](./images/17-azureportal.png)
+
+    You will need to navigate to Subscriptions --> YOUR_SUB_NAME --> Deployments to see the in-progress deployment.
 
 ### 4.3 Configure your cluster
 
@@ -161,10 +163,13 @@ Now that you've deployed your infrastructure and application you're ready to acc
     kubectl get ingress
     ```
 
-1. Try out the application by reporting a lost pet
-1. Open the storage account in the Azure portal and navigate to the `images` container. You should see the image you uploaded:
+2. Try out the application by reporting a lost pet
+3. Open the storage account in the Azure portal, open Storage Browser and navigate to the `images` container. You should see the image you uploaded:
    ![Storage account](./images/19-storage.png)
-1. Open the 'pets' container in the storage account and you should see the pet you reported:
+4. Open the 'pets' container in the storage account and you should see the pet(s) you reported:
    ![Storage account](./images/20-storage.png)
+5. Download the state file and open it in VSCode. You should see a JSON representation of the state.
 
 Done! You've now deployed PetSpotR to Azure using Bicep and used cloud Dapr bindings to connect to Azure services.
+
+Click 'End' to end the lab.

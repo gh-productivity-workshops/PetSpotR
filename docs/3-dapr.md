@@ -16,6 +16,12 @@ Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
     code ./src/frontend/PetSpotR/Data/PetModel.cs
     ```
 2. Within `SavePetStateAsync` replace the current Console.WriteLine() and comment with a comment describing what you want to do:
+
+    ```csharp
+    // Save state to "pets" Dapr state store, using the supplied Dapr client
+    ```
+
+    It should now look like:
     
     ```csharp
     public async Task SavePetStateAsync(DaprClient daprClient)
@@ -23,6 +29,8 @@ Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
         // Save state to "pets" Dapr state store, using the supplied Dapr client
     }
     ```
+
+
 3. You'll now see GitHub Copilot suggest a new method to add to the Pet model. Hit `Tab` to accept the suggestion and add the method to the Pet model.
 
     ![GhostText](./images/GhostText.png)
