@@ -1,20 +1,20 @@
-apiVersion: dapr.io/v1alpha1
-kind: Component
+apiVersion: dapr.io/v1alpha1 # The category (API) of the resource
+kind: Component              # The type of resource - in this case Dapr component
 metadata:
-  name: pets
+  name: pets                 # The name of the component. This is what your code uses to reference the component
 spec:
-  type: state.azure.blobstorage
+  type: state.azure.blobstorage # The type of resource to use. In this case Azure Blob Storage
   version: v1
   metadata:
-  - name: accountName
-    secretKeyRef:
+  - name: accountName           # The name of the account referenced via Dapr secret
+    secretKeyRef:               # This secret will be deployed as part of the app
       name: storage
       key: accountName
-  - name: containerName
+  - name: containerName         # The blob container name. Will be created by Dapr if it doesn't exist yet
     value: pets
-  - name: accountKey
+  - name: accountKey            # Connection string of the storage account. Deployed as part of the app
     secretKeyRef:
       name: storage
       key: accountKey
-  - name: keyPrefix
+  - name: keyPrefix             # Prefix for state keys. This is optional, but set here so frontend/backend can share the state of pets
     value: name
