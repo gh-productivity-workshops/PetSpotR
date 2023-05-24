@@ -31,7 +31,7 @@ Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
     ```
 
 
-3. You'll now see GitHub Copilot suggest a new method to add to the Pet model. Hit `Tab` to accept the suggestion and add the method to the Pet model.
+3. You'll now see GitHub Copilot suggest a new method to add to the Pet model. (Make sure you've hit Enter to move to a new line. Copilot may not run until you're on a new line or at the end of a line). Hit `Tab` to accept the suggestion and add the method to the Pet model.
 
     ![GhostText](./images/GhostText.png)
 
