@@ -102,20 +102,10 @@ Let's add the GitHub Copilot extension, but let's add it to the devcontainer rat
 1. Open the "Extensions" (![Extensions](images/extensions.png)) pane
 2. Search for "Copilot" and select the GitHub Copilot extension
 ![GitHub Copilot extension](images/8-copilot-extension.png)
-3. Don't click the green "Install in Codespaces" button! Instead, click the cog icon (⚙️) and select "Add to devcontainer.json".
-![Add extension to devcontainer](images/9-copilot-extension-devcontainer.png)
-4. Go back to the `devcontainer.json` file and see the change. Note that the extension hasn't been installed in your Codespace at this point.
-![Extension added to the devcontainer](images/10-copilot-devcontainer-change.png)
-
-    To see the change, we'll need to rebuild our Codespace. When running in your own repository you could commit this change so all new Codespaces would have the extension installed, but we'll just rebuild for now.
-
-5. Using your keyboard, press `Ctrl-Shift-P` to open the command palette, then type "rebuild" to find the "Codespaces: Rebuild Container" option. Select it and press Enter, or click it with the mouse.
-![Rebuilding your Codespace](images/11-rebuild-codespace.png)
-6. Confirm your choice by clicking "Rebuild" and wait for your Codespace to reload.
-![Confirm the rebuild](images/12-rebuild-codespace-confirm.png)
- _This may take a little longer than your first build! This is because we're taking advantage of a feature called Prebuilds. Your instructor will show you how to set these up and explain why they're useful._
-7. Once reloaded, you'll be able to see GitHub Copilot installed - both in the Extensions pane, as well as via the GitHub Copilot logo at the bottom right of the status bar!
+3. Click the green "Install in Codespaces" button to install the Copilot extension. You now have Copilot installed and can verify by the Copilot logo in the bottom-right corner:
 
    ![Copilot Logo](images/13-copilot-icon.png)
+4. You can also click the gear and select (Add to devcontainer.json) to add this extension to the definition of the Codespace. This allows all future Codespaces to get this extension on creation. (We won't be committing/pushing this now, but on your own branch you could).
+5. Done! You've successfully opened and customized your Codespace.
 
 Check out the next section (bottom right corner of the page) to learn how to debug and run PetSpotR locally.
