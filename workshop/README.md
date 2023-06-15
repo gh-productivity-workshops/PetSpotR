@@ -12,7 +12,7 @@ Cloud computing has exploded in the past few decades. But the cloud can be used 
 
 The advantages of using Codespaces over local development are many. You can standardize on a set of dependencies for a project, onboard a new developer in seconds rather than days, and spin up and tear down context-aware Codespaces at a moment's notice.
 
- 🤯 _Fun Fact: GitHub itself uses Codespaces to develop GitHub! New engineers can go from zero to ready to code in about 10 seconds. And that's on an 11GB codebase!_
+🤯 _Fun Fact: GitHub itself uses Codespaces to develop GitHub! New engineers can go from zero to ready to code in about 10 seconds. And that's on an 11GB codebase!_
 
  In this workshop you will:
 
@@ -41,7 +41,7 @@ So now you know what you'll learn in this workshop, let's walk through the steps
 
 We'll be using an AI-powered pet lost-and-found app called PetSpotR. This web app is in C# and Python, and uses Dapr, Kubernetes and Keda, Bicep, Azure Machine Learning and a whole lot of other frameworks and technologies.
 
-_😨 Don't worry if you aren't familiar with these. This is where Codespaces and Copilot can help!_
+😨 _Don't worry if you aren't familiar with these. This is where Codespaces and GitHub Copilot can help!_
 
 ## 1. Start a new Codespace
 
@@ -142,7 +142,7 @@ _To see the change, we'll need to rebuild our Codespace._
 
 Let's add some more details to our lost pets form. We want to also track where the pet was last seen. Let's take a look at the Lost Pet page.
 
-_⚠️ NOTE: GitHub Copilot is non-deterministic! It syntheses code just for you, so you will likely see different suggestions than the person next to you! We'll talk about how to get the best out of Copilot a little later._
+⚠️ _NOTE: GitHub Copilot is non-deterministic! It syntheses code just for you, so you will likely see different suggestions than the person next to you! We'll talk about how to get the best out of Copilot a little later._
 
 1. In the Explorer pane, Go to the `LostPet.razor` file (you can get there quickly with `Ctrl/Cmd-P`, then typing the filename)
 
@@ -161,7 +161,7 @@ _⚠️ NOTE: GitHub Copilot is non-deterministic! It syntheses code just for yo
 6. GitHub Copilot should make a suggestion in grey with an `h2` heading. Hit `Tab` to accept the suggestion.
 ![GitHub Copilot Ghost text](images/14-copilot-h2-suggestion.png)
 
-_🤔 We refer to this suggestion mechanism as "ghost text". You can hit Tab to accept a suggestion, or simply ignore it and keep typing._
+🤔 _We refer to this suggestion mechanism as "ghost text". You can hit Tab to accept a suggestion, or simply ignore it and keep typing._
 
 7. On the next line, write the following comment and hit Enter.
 
@@ -220,7 +220,7 @@ _🔎 Hint: look for where to add details about the pet's last known location in
 
 Finally, we're going to use GitHub Copilot to help us write some tests around our pages. This application already uses Playwright for testing, so let's build on that.
 
-1. In the `src/tests/playwright/tests` folder, create a new file called `lostpage.spec.ts`
+1. In the `tests/playwright/tests` folder, create a new file called `lostpage.spec.ts`
 ![New test file](images/20-new-test-file.png)
 
 2. In that file, write a comment that says:
@@ -253,7 +253,7 @@ _GitHub Copilot should do a good job of giving you the test function, although i
 
 ```// test that you can upload images when you click Choose Files button```
 
-_😖 Note that last one is more temperamental and might need extra prompting. You should end up with something similar to the following._
+😖 _Note that last one is more temperamental and might need extra prompting. You should end up with something similar to the following._
 ![New tests with Copilot](images/21-copilot-test-suggestions.png)
 
 # 🥳 Congratulations!
