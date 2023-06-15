@@ -42,6 +42,7 @@ def lostPet():
     try: 
         result = dapr.get_state(store_name=statestore, key=id)
         data = json.loads(result.data)
+        print(data)
         print(f'Pet state retrieved', flush=True)
     except Exception as e:
         print(f'Error: {e}', flush=True)
@@ -52,7 +53,8 @@ def lostPet():
             data['breed'],
             data['images'],
             data['state'],
-            data['ownerEmail']
+            data['ownerEmail'],
+            data['location']
         )
     
     # Fine-tune PetMatch model with new pet information

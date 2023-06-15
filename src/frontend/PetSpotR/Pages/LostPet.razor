@@ -48,6 +48,21 @@
                 </label>
             </div>
         </div>
+        <!-- Step 2.5 - pet's last location h2 element followed by a dropdown -->
+        <h2>Step 2.5: Where was your pet last seen?</h2>
+        <!-- Dropdown menu with 5 locations in China -->
+        <div class="form-group row justify-content-center">
+            <label for="petLocation" class="col-2 col-form-label">Pet Location</label>
+            <div class="col-4">
+                <InputSelect id="location" @bind-Value="petModel.Location">
+                    <option>Beijing</option>
+                    <option>Shanghai</option>
+                    <option>Guangzhou</option>
+                    <option>Shenzhen</option>
+                    <option>Chengdu</option>
+                </InputSelect>
+            </div>
+        </div>
         @if (isLoading)
         {
             <p>Uploading...</p>
