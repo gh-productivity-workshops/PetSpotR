@@ -77,7 +77,7 @@ Your next task is to use GitHub Copilot to add Dapr to the PetSpotR application.
 
 Now that you've made changes within your Codespace, let's debug the application again, this time using Dapr to save the pet's state and publishing a message to the backend.
 
-1. Select the `Run and Debug` (![](images/extensions.png)) tab in the left-hand pane of the Codespace.
+1. Select the `Run and Debug` (![](images/debug.png)) tab in the left-hand pane of the Codespace.
 2. Make sure the launch configuration is set to `✅ Debug with Dapr`
 3. Click the `Start Debugging` button (▶️) to launch PetSpotR locally
 4. Visit the `Lost` and `Found` pages to see the application's interface. You'll see that the form now works, and you can add lost and found pets to the application.
