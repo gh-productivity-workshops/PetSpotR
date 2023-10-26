@@ -6,9 +6,9 @@ It also leverages popular open-source projects such as Dapr and Keda to provide 
 
 ![Logo](./img/logo.svg)
 
-## Build 2023 Lab Session
+## Ignite 2023 Lab Session
 
-Welcome to the Build 2023 lab session for PetSpotR! This lab will walk you through a set of exercises to run, deploy, and scale PetSpotR.
+Welcome to the Ignite 2023 lab session for PetSpotR! This lab will walk you through a set of exercises to run, deploy, and scale PetSpotR.
 
 [**🚀 Lab instructions**](./docs/0-getting-started.md)
 
