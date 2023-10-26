@@ -28,7 +28,7 @@ You should now drop directly into a Codespace with the PetSpotR repository clone
 
 ### 1.2 Explore the Codespace
 
-1. In the Codespace terminal, run `ls -a` to list the files and directories in the repository:
+1. In the Codespace terminal, run 'ls -a' to list the files and directories in the repository:
     
     ```bash
     $ ls -a
@@ -61,7 +61,7 @@ You should now drop directly into a Codespace with the PetSpotR repository clone
     - `src`  contains the source code for the application's backend and frontend services.
     - `.vscode` contains the configuration for both the Codespace and Visual Studio Code.
 
-2. Your Codespace also can run Docker containers inside of it! Run `docker ps` to list the running containers:
+2. Your Codespace also can run Docker containers inside of it! Run 'docker ps' to list the running containers:
     
     ```bash
     docker ps
@@ -102,7 +102,7 @@ Let's add the GitHub Copilot extension, but let's add it to the devcontainer rat
 1. Open the "Extensions" (![Extensions](images/extensions.png)) pane
 2. Search for "Copilot" and select the GitHub Copilot extension
 ![GitHub Copilot extension](images/8-copilot-extension.png)
-3. Click the green "Install in Codespaces" button to install the Copilot extension. You now have Copilot installed and can verify by the Copilot logo in the bottom-right corner:
+3. Click the green "Install in Codespaces" button to install the Copilot extension. You now have Copilot installed and can verify by the Copilot logo in the bottom-right corner (_if you don't see the icon refresh your page to force your extensions to reload_):
 
    ![Copilot Logo](images/13-copilot-icon.png)
 4. You can also click the gear and select (Add to devcontainer.json) to add this extension to the definition of the Codespace. This allows all future Codespaces to get this extension on creation. (We won't be committing/pushing this now, but on your own branch you could).
