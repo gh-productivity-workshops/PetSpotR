@@ -8,7 +8,7 @@ param containerRegistry string
 @description('Tag of container to use')
 param containerTag string = 'latest'
 
-import 'kubernetes@1.0.0' with {
+provider 'kubernetes@1.0.0' with {
   kubeConfig: kubeConfig
   namespace: 'default'
 }

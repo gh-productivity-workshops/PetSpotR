@@ -5,7 +5,7 @@ param kubeConfig string
 @description('DNS name of the HTTP Application Routing AddOn')
 param HTTPApplicationRoutingZoneName string
 
-import 'kubernetes@1.0.0' with {
+provider 'kubernetes@1.0.0' with {
   kubeConfig: kubeConfig
   namespace: 'default'
 }
