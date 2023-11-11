@@ -31,7 +31,7 @@ You should now drop directly into a Codespace with the PetSpotR repository clone
 1. In the Codespace terminal, run 'ls -a' to list the files and directories in the repository:
     
     ```bash
-    $ ls -a
+    ls -a
     ```
 
     You should see the following files and directories:
