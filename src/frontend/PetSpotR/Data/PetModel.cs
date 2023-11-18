@@ -26,14 +26,29 @@ namespace PetSpotR.Models
 
         public async Task SavePetStateAsync(DaprClient daprClient)
         {
-            // Delete this line and replace it with a comment describing what you want to do
-            Console.WriteLine("Not implemented");
+            // Save state to "pets" Dapr state store, using the supplied Dapr client
+            try
+            {
+                await daprClient.SaveStateAsync("pets", ID, this);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
         }
 
         public async Task PublishLostPetAsync(DaprClient daprClient)
         {
             // Delete this line and replace it with a comment describing what you want to do
-            Console.WriteLine("Not implemented");
+            try
+            {
+                await daprClient.PublishEventAsync("pubsub", "lostpet", this);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
