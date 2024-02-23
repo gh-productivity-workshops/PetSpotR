@@ -12,6 +12,7 @@ namespace PetSpotR.Models
         public string State { get; set; }
         public List<string> Images { get; set; }
 
+
         // Constructor
         public PetModel()
         {
