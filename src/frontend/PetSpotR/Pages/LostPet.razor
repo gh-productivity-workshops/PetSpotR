@@ -39,6 +39,12 @@
                 <InputText id="owneremail" @bind-Value="petModel.OwnerEmail" />
             </div>
         </div>
+        <div class="form-group row justify-content-center">
+            <label for="petDescription" class="col-2 col-form-label">Pet Description</label>
+            <div class="col-4">
+                <InputTextArea id="description" @bind-Value="petModel.Description" />
+            </div>
+        </div>
         <h2>Step 2: Upload images of your pet</h2>
         <p><i>For best results upload at least 8-10 images with different angles, lighting, and backgrounds</i></p>
         <div class="form-group row justify-content-center">

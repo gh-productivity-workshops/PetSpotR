@@ -11,6 +11,7 @@ namespace PetSpotR.Models
         public string ID { get; set; }
         public string State { get; set; }
         public List<string> Images { get; set; }
+        public string Description { get; set; }
 
 
         // Constructor
@@ -23,6 +24,7 @@ namespace PetSpotR.Models
             ID = Guid.NewGuid().ToString();
             State = "new";
             Images = new();
+            Description = "";
         }
 
         public async Task SavePetStateAsync(DaprClient daprClient, string storeName)
