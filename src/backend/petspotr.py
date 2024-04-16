@@ -77,7 +77,7 @@ def create_pipeline(training_mltable_path, validation_mltable_path, pipeline_com
 '''
 
 class pet:
-    def __init__(self, ID, Name, Type, Breed, Images, State, OwnerEmail):
+    def __init__(self, ID, Name, Type, Breed, Images, State, OwnerEmail, Location):
         self.ID = ID
         self.Name = Name
         self.Type = Type
@@ -85,6 +85,7 @@ class pet:
         self.Images = Images
         self.State = State
         self.OwnerEmail = OwnerEmail
+        self.Location = Location
 
     def train_model(self):
         print('Training model')
