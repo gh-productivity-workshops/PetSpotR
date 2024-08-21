@@ -1,5 +1,4 @@
 name: Playwright Tests
-
 on:
   push:
     branches:
@@ -13,6 +12,9 @@ on:
         description: URL to test
         required: false
         default: http://localhost:5114/
+
+env:
+  TEST_URL: ${{ github.event.inputs.url || 'http://localhost:5114/' }}
 
 jobs:
   test:
@@ -30,10 +32,10 @@ jobs:
         path: ~/.cache/ms-playwright
         key: ${{ runner.os }}-node-${{ hashFiles('tests/playwright/package.json') }}-${{ hashFiles('tests/playwright/playwright.config.ts') }}
     - name: Dapr tool installer
-      if: ${{ github.event.inputs.url == 'http://localhost:5114/' || github.event.inputs.url == '' }}
+      if: ${{ env.TEST_URL == 'http://localhost:5114/' }}
       uses: dapr/setup-dapr@v1
     - name: Setup app locally
-      if: ${{ github.event.inputs.url == 'http://localhost:5114/' || github.event.inputs.url == '' }}
+      if: ${{ env.TEST_URL == 'http://localhost:5114/'}}
       run: scripts/setup
     - name: Install dependencies
       run: |
@@ -44,8 +46,6 @@ jobs:
         cd tests/playwright
         npx playwright install --with-deps
     - name: Run Playwright tests
-      env:
-        TEST_URL: ${{ github.event.inputs.url }}
       run: |
         cd tests/playwright
         npx playwright test

@@ -9,6 +9,10 @@ import { devices } from '@playwright/test';
 
 const test_url = process.env.TEST_URL?.trim() || undefined;
 
+if (test_url) {
+  console.log(`Testing against ${test_url}`);
+}
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
