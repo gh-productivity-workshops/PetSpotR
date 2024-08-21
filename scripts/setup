@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+dapr init
+
+# Install python dependencies
+pip install -r ./src/backend/requirements.txt
+
+# dotnet restore
+dotnet restore ./src/frontend/PetSpotR/PetSpotR.csproj
+
+# install playwright browsers
+cd tests/playwright
+npm install
+npx playwright install --with-deps

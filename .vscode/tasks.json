@@ -40,7 +40,7 @@
         {
             "label": "dapr-up-frontend",
             "type": "shell",
-            "command": [ "dapr run --app-id frontend --app-port 5114 --components-path ./iac/dapr/local --dapr-http-port 3501 --dapr-grpc-port 50001"],
+            "command": ["scripts/dev-frontend"],
             "isBackground": true,
             "dependsOn": "build",
             "problemMatcher": [
@@ -72,7 +72,7 @@
         {
             "label": "dapr-up-backend",
             "type": "shell",
-            "command": [ "dapr run --app-id backend --app-port 5000 --components-path ./iac/dapr/local --dapr-http-port 3502 --dapr-grpc-port 50002"],
+            "command": ["scripts/dev-backend"],
             "isBackground": true,
             "dependsOn": "build",
             "problemMatcher": [

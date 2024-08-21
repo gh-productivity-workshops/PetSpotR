@@ -3,10 +3,5 @@ wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O 
 
 # Initialize dapr
 dapr uninstall --all # clean if needed
-dapr init
 
-# Install python dependencies
-pip install -r ./src/backend/requirements.txt
-
-# dotnet restore
-dotnet restore ./src/frontend/PetSpotR/PetSpotR.csproj
+scripts/setup
