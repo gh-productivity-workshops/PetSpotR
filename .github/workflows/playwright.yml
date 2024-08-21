@@ -30,10 +30,10 @@ jobs:
         path: ~/.cache/ms-playwright
         key: ${{ runner.os }}-node-${{ hashFiles('tests/playwright/package.json') }}-${{ hashFiles('tests/playwright/playwright.config.ts') }}
     - name: Dapr tool installer
-      if: ${{ github.event.inputs.url == 'http://localhost:5114/' }}
+      if: ${{ github.event.inputs.url == 'http://localhost:5114/' || github.event.inputs.url == '' }}
       uses: dapr/setup-dapr@v1
     - name: Setup app locally
-      if: ${{ github.event.inputs.url == 'http://localhost:5114/' }}
+      if: ${{ github.event.inputs.url == 'http://localhost:5114/' || github.event.inputs.url == '' }}
       run: scripts/setup
     - name: Install dependencies
       run: |

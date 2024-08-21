@@ -7,6 +7,8 @@ import { devices } from '@playwright/test';
  */
 // require('dotenv').config();
 
+const test_url = process.env.TEST_URL?.trim() || undefined;
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -37,7 +39,7 @@ const config: PlaywrightTestConfig = {
     actionTimeout: 0,
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.TEST_URL ?? `http://localhost:5114/`,
+    baseURL: test_url ?? `http://localhost:5114/`,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -99,7 +101,7 @@ const config: PlaywrightTestConfig = {
   // outputDir: 'test-results/',
 };
 
-if (process.env.TEST_URL?.includes('localhost')) {
+if (test_url?.includes('localhost')) {
   /* Run your local dev server before starting the tests */
   config.webServer = {
     command: '../../scripts/dev',
