@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+lsof -ti :5114,5000 | xargs kill || true
+
+dotnet watch --project "$(dirname "$0")/../src/frontend/PetSpotR/PetSpotR.csproj" run &
+$(dirname "$0")/dev-backend &
+$(dirname "$0")/dev-frontend &
+
+wait
