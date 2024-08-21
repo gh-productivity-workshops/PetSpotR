@@ -45,6 +45,15 @@ jobs:
       run: |
         cd tests/playwright
         npx playwright install --with-deps
+    - name: Start app
+      if: ${{ env.TEST_URL == 'http://localhost:5114/' }}
+      run: scripts/dev
+    - name: Wait for port
+      if: ${{ env.TEST_URL == 'http://localhost:5114/' }}
+      uses: appleboy/wait-for-action@v2
+      with:
+        host: localhost
+        port: 5114
     - name: Run Playwright tests
       run: |
         cd tests/playwright
