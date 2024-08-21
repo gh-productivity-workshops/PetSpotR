@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+dapr run --app-id backend --app-port 5000 --components-path ./iac/dapr/local --dapr-http-port 3502 --dapr-grpc-port 50002
