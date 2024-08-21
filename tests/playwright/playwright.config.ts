@@ -105,12 +105,4 @@ const config: PlaywrightTestConfig = {
   // outputDir: 'test-results/',
 };
 
-if (test_url?.includes('localhost')) {
-  /* Run your local dev server before starting the tests */
-  config.webServer = {
-    command: '../../scripts/dev',
-    url: 'http://localhost:5114/'
-  };
-}
-
 export default config;
