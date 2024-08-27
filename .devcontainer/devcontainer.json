@@ -23,7 +23,14 @@
       // Configure properties specific to VS Code.
       "vscode": {
         "settings": {},
-        "extensions": ["ms-azuretools.vscode-dapr", "ms-dotnettools.csharp", "ms-azuretools.vscode-docker", "ms-python.python", "dunn.redis"]
+        "extensions": [
+			"ms-azuretools.vscode-dapr",
+			"ms-dotnettools.csharp",
+			"ms-azuretools.vscode-docker",
+			"ms-python.python",
+			"dunn.redis",
+			"GitHub.copilot"
+		]
       }
     },
   
