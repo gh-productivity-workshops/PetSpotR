@@ -183,3 +183,5 @@ We have added some Playwright tests in order to test the functionality of this w
 - Is there a correct title on the page?
 - Does the submit button on the home page redirect to the /submit page?
 - Does the submit form correctly fill out with a photo being uploaded?
+
+You can run these directly in your Codespace, and all the test files are under "tests".
