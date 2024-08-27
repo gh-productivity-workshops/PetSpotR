@@ -9,13 +9,14 @@
 @inject NavigationManager NavigationManager
 
 
-<EditForm Model="@petModel" OnSubmit="@HandleSubmit" >
+<EditForm Model="@petModel" OnSubmit="@HandleSubmit" method="post">
     <div class="form-container">
-        <h2>Step 1: Tell us about your pet and how to contact you</h2>
+        <h2>Step 1: Tell us about your lost pet</h2>
+        <h3>What kind of pet do you have and where did you lose it?</h3>
         <div class="form-group row justify-content-center">
-            <label for="petName" class="col-2 col-form-label">Pet Name</label>
+            <label for="petname" class="col-2 col-form-label">Pet Name</label>
             <div class="col-4">
-                <InputText id="name" @bind-Value="petModel.Name" />
+                <InputText id="petname" @bind-Value="petModel.Name" />
             </div>
         </div>
         <div class="form-group row justify-content-center">
@@ -24,6 +25,9 @@
                 <InputSelect id="type" @bind-Value="petModel.Type">
                     <option>Dog</option>
                     <option>Cat</option>
+                    <option>Bird</option>
+                    <option>Rabbit</option>
+                    <option>Frog</option>
                 </InputSelect>
             </div>
         </div>
@@ -33,18 +37,34 @@
                 <InputText id="breed" @bind-Value="petModel.Breed" />
             </div>
         </div>
+
+        <h2>Step 2: Where did you lose your pet</h2>
+        <h3>Tell us where you lost your pet, so we can narrow our search for you</h3>
         <div class="form-group row justify-content-center">
-            <label for="petOwnerEmail" class="col-2 col-form-label">Owner Email</label>
+            <label for="lostlocation" class="col-2 col-form-label">City</label>
             <div class="col-4">
-                <InputText id="owneremail" @bind-Value="petModel.OwnerEmail" />
+            <InputSelect id="lostlocation" @bind-Value="petModel.City">
+                <option disabled>Select City</option>
+                <option>Sydney</option>
+                <option>Melbourne</option>
+                <option>Brisbane</option>
+                <option>Perth</option>
+                <option>Adelaide</option>
+                <option>Gold Coast</option>
+                <option>Canberra</option>
+                <option>Newcastle</option>
+                <option>Wollongong</option>
+                <option>Sunshine Coast</option>
+            </InputSelect>
             </div>
         </div>
-        <h2>Step 2: Upload images of your pet</h2>
+
+        <h2>Step 3: Upload images of your pet</h2>
         <p><i>For best results upload at least 8-10 images with different angles, lighting, and backgrounds</i></p>
         <div class="form-group row justify-content-center">
             <div class="col-4">
                 <label>
-                    <InputFile OnChange="@SelectImages" multiple accept=".png,.jpg,.jpeg" />
+                    <InputFile id="petimage" OnChange="@SelectImages" multiple accept=".png,.jpg,.jpeg" />
                 </label>
             </div>
         </div>
@@ -52,7 +72,25 @@
         {
             <p>Uploading...</p>
         }
-        <h2>Step 3: Submit lost pet for AI training</h2>
+
+        <h2>Step 4: Tell us about you</h2>
+        <h3>Tell us some of your details so we can get in touch if we find your pet</h3>
+
+        <div class="form-group row justify-content-center">
+            <label for="ownername" class="col-2 col-form-label">Owner Name</label>
+            <div class="col-4">
+                <InputText id="ownername" @bind-Value="petModel.OwnerName" />
+            </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+            <label for="owneremail" class="col-2 col-form-label">Owner Email</label>
+            <div class="col-4">
+                <InputText id="owneremail" @bind-Value="petModel.OwnerEmail" />
+            </div>
+        </div>
+        
+        <h2>Step 5: Submit lost pet</h2>
         <div class="form-group row">
             <div class="col-sm">
                 <button type="submit" class="btn btn-primary btn-lg">Submit</button>

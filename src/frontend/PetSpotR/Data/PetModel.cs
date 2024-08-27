@@ -7,6 +7,8 @@ namespace PetSpotR.Models
         public string Name { get; set; }
         public string Type { get; set; }
         public string Breed { get; set; }
+        public string City { get; set; }
+        public string OwnerName { get; set; }
         public string OwnerEmail { get; set; }
         public string ID { get; set; }
         public string State { get; set; }
@@ -19,10 +21,13 @@ namespace PetSpotR.Models
             Name = "";
             Type = "";
             Breed = "";
+            City = "";
+            OwnerName = "";
             OwnerEmail = "";
             ID = Guid.NewGuid().ToString();
             State = "new";
             Images = new();
+
         }
 
         public async Task SavePetStateAsync(DaprClient daprClient, string storeName)
