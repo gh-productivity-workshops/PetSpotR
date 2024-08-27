@@ -91,36 +91,36 @@ The application scales using [KEDA](https://keda.sh), which allows you to scale 
 You can run this application in a [GitHub Codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace). This is useful for development and testing. The ML training and scoring will run within an Azure Machine Learning workspace in your Azure subscription.
 
 1. Click the `Code` button and select `Open with Codespaces`
-1. Wait for the Codespace to be created
-1. Hit 'F5' or open the `Run and Debug` tab and select `✅ Debug with Dapr`
+2. Wait for the Codespace to be created
+3. Hit 'F5' or open the `Run and Debug` tab and select `✅ Debug with Dapr`
 
 ### Run locally
 
 The services in this application can be run locally using the Dapr CLI. This is useful for development and testing. The ML training and scoring will run within an Azure Machine Learning workspace in your Azure subscription.
 
 1. Install the [Dapr CLI](https://docs.dapr.io/getting-started/install-dapr-cli/)
-1. Initialize Dapr
+2. Initialize Dapr
    ```bash
    dapr init
    ```
-1. Configure your Dapr images component for Windows or Mac
+3. Configure your Dapr images component for Windows or Mac
    1. Open ./iac/dapr/local/images.yaml
    1. Uncomment the appropriate section for your OS, and comment out the other section
-1. Deploy the required Azure resources
+4. Deploy the required Azure resources
    ```bash
    az deployment group create --resource-group myrg --template-file ./iac/infra.bicep --parameters mode=dev
    ```
-1. Run the backend
+5. Run the backend
    ```bash
    cd src/backend
    dapr run --app-id backend --app-port 6002 --components-path ../../iac/dapr/local -- python app.py
    ```
-1. Run the frontend
+6. Run the frontend
    ```bash
    cd src/frontend/PetSpotR
    dapr run --app-id frontend --app-port 5114 --components-path ../../../iac/dapr/local -- dotnet watch
    ```
-1. Navigate to http://localhost:5114
+7. Navigate to http://localhost:5114
 
 ### Deploy to Azure with the CLI
 
@@ -129,24 +129,24 @@ The services in this application can be run locally using the Dapr CLI. This is 
    az login
    az account set --subscription "My Subscription"
    ```
-1. Clone this repository
+2. Clone this repository
    ```bash
    git clone https://github.com/azure-samples/petspotr.git
    cd petspotr
    ```
-1. Deploy the infrastructure
+3. Deploy the infrastructure
    ```bash
    az deployment group deployment create --resource-group myrg --template-file ./iac/infra.json
    ```
-1. Deploy the configuration
+4. Deploy the configuration
    ```bash
    az deployment group deployment create --resource-group myrg --template-file ./iac/config.json
    ```
-1. Get AKS credentials
+5. Get AKS credentials
    ```bash
    az aks get-credentials --resource-group myrg --name petspotr
    ```
-1. Install Helm Charts
+6. Install Helm Charts
    ```bash
    helm repo add dapr https://dapr.github.io/helm-charts/
    helm repo add kedacore https://kedacore.github.io/charts
@@ -154,24 +154,32 @@ The services in this application can be run locally using the Dapr CLI. This is 
    helm upgrade dapr dapr/dapr --install --version=1.10 --namespace dapr-system --create-namespace --wait
    helm upgrade keda kedacore/keda --install --version=2.9.4 --namespace keda --create-namespace --wait
    ```
-1. Log into Azure Container Registry
+7. Log into Azure Container Registry
    You can get your registry name from your resource group in the Azure Portal
    ```bash
    az acr login --name myacr
    ```
-1. Build and push containers
+8. Build and push containers
    ```bash
    docker build -t myacr.azurecr.io/backend:latest ./src/backend
    docker build -t myacr.azurecr.io/frontend:latest ./src/frontend
    docker push myacr.azurecr.io/petspotr:latest
    docker push myacr.azurecr.io/frontend:latest
    ```
-1. Deploy the application
+9. Deploy the application
    ```bash
    az deployment group deployment create --resource-group myrg --template-file ./iac/app.json
    ```
-1. Get your frontend URL
+10. Get your frontend URL
    ```bash
    kubectl get svc
    ```
-1. Navigate to your frontend URL
+11. Navigate to your frontend URL
+
+## Testing
+
+We have added some Playwright tests in order to test the functionality of this website. There are tests for the website which include:
+- Does the webpage load?
+- Is there a correct title on the page?
+- Does the submit button on the home page redirect to the /submit page?
+- Does the submit form correctly fill out with a photo being uploaded?
