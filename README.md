@@ -129,24 +129,24 @@ The services in this application can be run locally using the Dapr CLI. This is 
    az login
    az account set --subscription "My Subscription"
    ```
-2. Clone this repository
+1. Clone this repository
    ```bash
    git clone https://github.com/azure-samples/petspotr.git
    cd petspotr
    ```
-3. Deploy the infrastructure
+1. Deploy the infrastructure
    ```bash
    az deployment group deployment create --resource-group myrg --template-file ./iac/infra.json
    ```
-4. Deploy the configuration
+1. Deploy the configuration
    ```bash
    az deployment group deployment create --resource-group myrg --template-file ./iac/config.json
    ```
-5. Get AKS credentials
+1. Get AKS credentials
    ```bash
    az aks get-credentials --resource-group myrg --name petspotr
    ```
-6. Install Helm Charts
+1. Install Helm Charts
    ```bash
    helm repo add dapr https://dapr.github.io/helm-charts/
    helm repo add kedacore https://kedacore.github.io/charts
@@ -154,34 +154,24 @@ The services in this application can be run locally using the Dapr CLI. This is 
    helm upgrade dapr dapr/dapr --install --version=1.10 --namespace dapr-system --create-namespace --wait
    helm upgrade keda kedacore/keda --install --version=2.9.4 --namespace keda --create-namespace --wait
    ```
-7. Log into Azure Container Registry
+1. Log into Azure Container Registry
    You can get your registry name from your resource group in the Azure Portal
    ```bash
    az acr login --name myacr
    ```
-8. Build and push containers
+1. Build and push containers
    ```bash
    docker build -t myacr.azurecr.io/backend:latest ./src/backend
    docker build -t myacr.azurecr.io/frontend:latest ./src/frontend
    docker push myacr.azurecr.io/petspotr:latest
    docker push myacr.azurecr.io/frontend:latest
    ```
-9. Deploy the application
+1. Deploy the application
    ```bash
    az deployment group deployment create --resource-group myrg --template-file ./iac/app.json
    ```
-10. Get your frontend URL
+1. Get your frontend URL
    ```bash
    kubectl get svc
    ```
-11. Navigate to your frontend URL
-
-## Testing your website and changes
-
-We have written some basic Playwright tests in order to test:
-- If the webpage loads
-- Are there correct titles shown on the webpage
-- Does the submit button on the home page direct to the correct /submit page
-- Does the form correctly fill out and submit with a picture of a lost pet
-
-You can run these Playwright tests from the terminal, and they are also incorporated into GitHub Actions, and therefore will run anytime there is a push to main or a new commit.
+1. Navigate to your frontend URL
