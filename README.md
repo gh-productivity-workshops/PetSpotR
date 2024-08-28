@@ -27,6 +27,7 @@ It also leverages popular open-source projects such as Dapr and Keda to provide 
 - [Python Flask](https://pypi.org/project/Flask/) - Backend server
 - [Dapr](https://dapr.io) - Microservice building blocks
 - [KEDA](https://keda.sh) - Kubernetes event-driven autoscaling
+- [Playwright](https://playwright.dev/) - for testing the website
 
 ## Architecture
 
@@ -71,6 +72,16 @@ The application scales using [KEDA](https://keda.sh), which allows you to scale 
 ### Load testing
 
 [Azure Load Testing](https://learn.microsoft.com/en-us/azure/load-testing/overview-what-is-azure-load-testing) is used to simulate a large number of users uploading images to the application, which allows us to test the application's scalability.
+
+## Front end Testing
+
+We have added some Playwright tests in order to test the functionality of this website. There are tests for the website which include:
+- Does the webpage load?
+- Is there a correct title on the page?
+- Does the submit button on the home page redirect to the /submit page?
+- Does the submit form correctly fill out with a photo being uploaded?
+
+You can run these directly in your Codespace, and all the test files are under "tests".
 
 ## Running PetSpotR
 
@@ -175,13 +186,3 @@ The services in this application can be run locally using the Dapr CLI. This is 
    kubectl get svc
    ```
 11. Navigate to your frontend URL
-
-## Testing
-
-We have added some Playwright tests in order to test the functionality of this website. There are tests for the website which include:
-- Does the webpage load?
-- Is there a correct title on the page?
-- Does the submit button on the home page redirect to the /submit page?
-- Does the submit form correctly fill out with a photo being uploaded?
-
-You can run these directly in your Codespace, and all the test files are under "tests".

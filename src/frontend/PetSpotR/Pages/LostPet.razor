@@ -11,7 +11,7 @@
 
 <EditForm Model="@petModel" OnSubmit="@HandleSubmit" >
     <div class="form-container">
-        <h2>Step 1: Tell us about your pet and how to contact you</h2>
+        <h2>Step 1: Tell us about your lost pet and how to contact you</h2>
         <div class="form-group row justify-content-center">
             <label for="petName" class="col-2 col-form-label">Pet Name</label>
             <div class="col-4">
@@ -24,6 +24,7 @@
                 <InputSelect id="type" @bind-Value="petModel.Type">
                     <option>Dog</option>
                     <option>Cat</option>
+                    <option>Rabbit</option>
                 </InputSelect>
             </div>
         </div>
