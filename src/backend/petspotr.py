@@ -77,7 +77,7 @@ def create_pipeline(training_mltable_path, validation_mltable_path, pipeline_com
 '''
 
 class pet:
-    def __init__(self, ID, Name, Type, Breed, Images, State, OwnerEmail):
+    def __init__(self, ID, Name, Type, Breed, Images, State, OwnerEmail, Description):
         self.ID = ID
         self.Name = Name
         self.Type = Type
@@ -85,9 +85,17 @@ class pet:
         self.Images = Images
         self.State = State
         self.OwnerEmail = OwnerEmail
+        self.Description = Description
 
     def train_model(self):
         print('Training model')
+        # Existing code...
+
+    def predict_image(self):
+        print('Predicting image')
+        # Existing code...
+
+    def alert_owner(self, dapr_client: DaprClient):
         '''
         Temporarily commented out due to features not yet publicly available in the Azure ML SDK for Python.
 
