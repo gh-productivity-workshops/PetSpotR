@@ -24,6 +24,9 @@
                 <InputSelect id="type" @bind-Value="petModel.Type">
                     <option>Dog</option>
                     <option>Cat</option>
+                    <option>Bird</option>
+                    <option>Rabbit</option>
+                    <option>Other</option>
                 </InputSelect>
             </div>
         </div>
@@ -46,6 +49,29 @@
                 <label>
                     <InputFile OnChange="@SelectImages" multiple accept=".png,.jpg,.jpeg" />
                 </label>
+            </div>
+        </div>
+        <h3>Step 3: Where did you lose your pet?</h3>
+        <div class="form-group row justify-content-center">
+            <label for="petLocation" class="col-2 col-form-label">Pet Location</label>
+            <div class="col-4">
+                <InputSelect id="location" @bind-Value="petModel.Location">
+                    <option value="">Select a location</option>
+                    // add a drop down list of locations, for suburbs in Auckland, NZ
+                    <option value="Albany">Albany</option>
+                    <option value="Avondale">Avondale</option>
+                    <option value="Birkenhead">Birkenhead</option>
+                    <option value="Blockhouse Bay">Blockhouse Bay</option>
+                    <option value="Browns Bay">Browns Bay</option>
+                    <option value="Devonport">Devonport</option>
+                    <option value="Ellerslie">Ellerslie</option>
+                    <option value="Epsom">Epsom</option>
+                    <option value="Glenfield">Glenfield</option>
+                    <option value="Glen Innes">Glen Innes</option>
+                    <option value="Grey Lynn">Grey Lynn</option>
+                    <option value="Henderson">Henderson</option>
+                    <option value="Hobsonville">Hobsonville</option>
+                </InputSelect>
             </div>
         </div>
         @if (isLoading)
